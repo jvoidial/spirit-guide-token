@@ -3,6 +3,48 @@
 
 A modular, event-driven AI runtime system built on FastAPI with a plugin architecture, persistent memory layer, and hardened execution core.
 
+cat << 'EOF' > install.sh
+#!/bin/bash
+
+echo "🧠 PHB AI OS INSTALLER STARTING..."
+
+if [ ! -d "phb-api" ]; then
+  git clone https://github.com/jvoidial/phb-api.git
+fi
+
+cd phb-api || exit 1
+
+mkdir -p phb/{cognition,memory,bridge,supervisor,world_model,sync}
+
+touch phb/__init__.py
+touch phb/cognition/__init__.py
+touch phb/memory/__init__.py
+touch phb/bridge/__init__.py
+touch phb/supervisor/__init__.py
+
+export PYTHONPATH=$PWD
+
+if [ -f requirements.txt ]; then
+  pip install -r requirements.txt
+fi
+
+pkill -f uvicorn || true
+
+echo "🚀 Starting PHB OS..."
+bash phb-api/run.sh &
+
+sleep 3
+
+curl -s http://localhost:8000/ || echo "⚠ Server starting..."
+
+echo "🟢 INSTALL COMPLETE"
+echo "👉 http://localhost:8000"
+EOF
+
+
+chmod +x install.sh
+bash install.sh
+
 Current Stable Version: **v3.2.1 (Stability Hardening)**
 
 ---
