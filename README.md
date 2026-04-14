@@ -3,7 +3,12 @@
 
 A modular, event-driven AI runtime system built on FastAPI with a plugin architecture, persistent memory layer, and hardened execution core.
 
-cat << 'EOF' > install.sh
+
+"git clone https://github.com/jvoidial/phb-api.git
+cd phb-api"
+
+
+"cat << 'EOF' > install.sh
 #!/bin/bash
 
 echo "🧠 PHB AI OS INSTALLER STARTING..."
@@ -39,11 +44,11 @@ curl -s http://localhost:8000/ || echo "⚠ Server starting..."
 
 echo "🟢 INSTALL COMPLETE"
 echo "👉 http://localhost:8000"
-EOF
+EOF"
 
 
-chmod +x install.sh
-bash install.sh
+"chmod +x install.sh
+bash install.sh"
 
 Current Stable Version: **v3.2.1 (Stability Hardening)**
 
