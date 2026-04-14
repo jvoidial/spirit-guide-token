@@ -1,1 +1,23 @@
+
+# logs
+*.log
+*.json
+
+# experimental layers
+main_v*.py
+phb_v*_*.sh
+phb_v*_*.py
+kernel_v*
+memory_*.py
+event_*
+cluster/
+orchestrator/
+daemon/
+workers/
+scheduler/
+queue/
+result_store.py
+results.json
+
+# system noise
 __pycache__/
