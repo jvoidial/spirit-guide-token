@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Mobile router</title>
+    <script type="text/javascript" src="../js/config.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/login.css"/>
+    <link href="../css/main.css" type="text/css" rel="stylesheet">
+    <link href="../css/styles.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/layui.css" tppabs="http://res.layui.com/layui/dist/css/layui.css"  media="all">
+    <link rel="stylesheet" href="../css/main.css"  media="all">
+
+    <script type="text/javascript" src="../js/menu.js"></script>
+    <script type="text/javascript" src="../js/settings.js"></script>
+    <script type="text/javascript" src="../js/ajax_calls.js"></script>
+    <script type="text/javascript" src="../js/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../js/i18n.js"></script>
+    <script type="text/javascript" src="../js/md5.js"></script>
+    <script type="text/javascript" src="../js/layui.js"></script>
+    <script type="text/javascript" src="../js/network.js"></script>
+    <script type="text/javascript" src="../js/wifi.js"></script>
+    <script type="text/javascript" src="../js/lan.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../js/includeLang.js"></script>
+
+    <style type="text/css">
+        input[type=checkbox] {
+            appearance: none;
+            background: url("../images/login/single_unselect.png");
+        }
+
+        input[type=checkbox]:checked {
+            appearance: none;
+            background: url("../images/login/pin_select.png");
+        }
+        /*清除password密码输入框的明文图标，此伪类仅在ie中有效*/
+        input::-ms-reveal {
+            display: none;
+        }
+        /*清除text文本输入框的清除图标，此伪类仅在ie中有效*/
+        input::-ms-clear{
+            display: none;
+        }
+    </style>
+
+    <script>
+        var LOCAL_HOST_IP = "/";
+        var _xmlName = "";
+        var REMOTE_HOST_IP = "/";
+        var language;
+        var PINLockStatus;
+        function frmLoad() {
+            document.title = DEFAULT_BUILD_VERSION
+            // stone_getXMLCfg("languageGet", getLanguage);
+            // stone_getXMLCfg("getPinLock", getPinLock);
+            if (language == "" || language == null) {
+                language = DEFAULT_LANGUAGE;
+            }
+            // var lang = localStorage.getItem('language');
+            // if (lang == null || lang === "") {
+            //     lang = 'en-us';
+            // }
+            $("#Language").val(language);
+
+            if ("" == DEFAULT_LOGIN_LOGO_IMG) {
+                document.getElementById("loginLogo").style.display = "none";
+            } else {
+                document.getElementById("loginLogo").src = DEFAULT_LOGIN_LOGO_IMG;
+                document.getElementById("loginLogo").style.display = "block";
+            }
+            $("#loginLogo2").show();
+            $("#loginBody").show();
+            $("#verifyPin").hide();
+            $("#tbarouter_username").attr("placeholder", I18N("j", "lUsername"));
+            $("#tbarouter_password").attr("placeholder", I18N("j", "lPassword"));
+            $("#verifyPinNum").attr("placeholder", I18N("j", "verifyPinNum"));
+            document.getElementById("tbarouter_username").focus();
+
+            // var browserType = getBrowserType();
+            // if (browserType == "IE" || browserType == "Edge") {
+            //     document.getElementById("showPassword").style.display = "none";
+            // }
+            // console.log("browserType = " + browserType)
+
+            var loginStatus = sessionStorage.getItem("loginStatus")
+            if (loginStatus !== "" && loginStatus != null) {
+                $.ajax({
+                    "cache": false,
+                    "url": "/html/main.html",
+                    "timeout": 5000,
+                    "type": "GET",
+                    "error": function () {
+                    },
+                    "success": function (data) {
+                        self.location.href = "/html/main.html";
+                    }
+                });
+            }
+            // if(xmlName !== "") {
+            //     document.getElementById("Page").innerHTML = callProductHTML("html/main.html");
+            //     loadMainHtml();
+            // }
+        }
+
+        function Login() {
+            var username = encodeURIComponent(document.getElementById("tbarouter_username").value);
+            var password = encodeURIComponent(document.getElementById("tbarouter_password").value);
+            if (username === "" || password === "") {
+                alert(I18N("j", "lEmpty"));
+            } else {
+                sessionStorage.setItem('username',username);
+                sessionStorage.setItem('password',password);
+                doLogin(username, password, loginSucess);
+            }
+        }
+
+        function loginSucess(login_done) {
+            console.log("loginSucess login_done = ", login_done);
+            stone_getXMLCfg("getPinLock", getPinLock);
+            if (login_done != 0) {
+                // document.getElementById("Page").innerHTML = callProductHTML("html/main.html");
+                // loadMainHtml();
+                if (PINLockStatus == 1) {
+                    $("#loginLogo2").hide();
+                    $("#loginBody").hide();
+                    $("#verifyPin").show();
+                }else if(PINLockStatus == 2){
+                    $("#loginLogo2").hide();
+                    $("#loginBody").hide();
+                    $("#verifyPuk").show();
+                }else {
+                    toMainHtml();
+                    sessionStorage.setItem('loginStatus',"login");
+                }
+            } else {
+                alert(I18N("j", "lFailed"));
+            }
+        }
+
+        function toMainHtml () {
+            $.ajax({
+                "cache": false,
+                "url": "/html/main.html",
+                "timeout": 5000,
+                "type": "GET",
+                "error": function () {
+                },
+                "success": function (data) {
+                    self.location.href = "/html/main.html";
+                }
+            });
+        }
+
+        var show = false
+        function showPassword() {
+            if (show) {
+                document.getElementById("tbarouter_password").type = "password";
+                document.getElementById("showPassword").src = "../images/login/login_password_no.png";
+                show = false;
+            } else {
+                document.getElementById("tbarouter_password").type = "text";
+                document.getElementById("showPassword").src = "../images/login/login_password_yes.png";
+                show = true;
+            }
+        }
+
+        function switch_Language(value) {
+            setLanguage(value);
+        }
+
+        function keyLogin () {
+            if(event.keyCode == 13){
+                Login();
+            }
+        }
+
+        function getLanguage (content) {
+            var xml = content;
+            console.log("getLanguage xml:", xml);
+
+            language = xml["language"];
+            localStorage.setItem('language', language);
+        }
+
+        function setLanguage (language) {
+            sessionStorage.removeItem('langPack');
+            localStorage.setItem('language', language);
+            location.reload();
+        }
+
+        function getPinLock (content) {
+            var xml = content;
+            console.log("getPinLock xml:", xml);
+
+            PINLockStatus = $(xml).find("pinLock").text();
+            console.log("PINLockStatus xml:", PINLockStatus);
+        }
+
+        function verifyPin () {
+            var PINNum = $("#verifyPinNum").val();
+            let lock = 0;
+            if ($('#verifyPinLock').is(':checked')) {
+                lock = 0;
+            } else {
+                lock = 1;
+            }
+
+            if (PINNum === "" ) {
+                alert(I18N("j","pinEmpty"));
+                return false;
+            }
+
+            if (PINNum.length<4||PINNum.length>8) {
+                alert(I18N("j","pinLengthError"));
+                return false;
+            }
+
+            var pin = {
+                "pin": PINNum.toString(),
+            }
+            var url = LOCAL_HOST_IP + "verifyPin";
+            $.ajax({
+                url: url,
+                dataType: "jsonp",
+                data: {pin: JSON.stringify(pin)},
+                async: false,
+                cache: false,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("Authorization", getAuthHeader("GET"));
+                    xhr.setRequestHeader("Expires", "-1");
+                    xhr.setRequestHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+                    xhr.setRequestHeader("Pragma", "no-cache");
+                },
+                success: function (content) {
+                    console.log("verifyPin:",content);
+                    var xml = content;
+                    var lockresult = $(xml).find("lockresult").text();
+                    var remaining = $(xml).find("remaining").text();
+
+                    if (lockresult == 1) {
+                        toMainHtml();
+                        sessionStorage.setItem('loginStatus',"login")
+                    } else {
+                        if(remaining==0){
+                            $("#verifyPin").hide();
+                            $("#verifyPuk").show();
+                        }else{
+                            alert(I18N("j","pinError",remaining));
+                        }
+                    }
+                }
+            });
+        }
+        function verifyPuk () {
+            var PukNum = $("#verifyPukNum").val();
+            let lock = 0;
+            if ($('#verifyPukLock').is(':checked')) {
+                lock = 0;
+            } else {
+                lock = 1;
+            }
+
+            if (PukNum === "" ) {
+                alert(I18N("j","pukEmpty"));
+                return false;
+            }
+            if (PukNum.length<6||PukNum.length>10) {
+                alert(I18N("j","pukLengthError"));
+                return false;
+            }
+
+            var puk = {
+                "puk": PukNum.toString(),
+            }
+            var url = LOCAL_HOST_IP + "verifyPuk";
+            $.ajax({
+                url: url,
+                dataType: "jsonp",
+                data: {puk: JSON.stringify(puk)},
+                async: false,
+                cache: false,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("Authorization", getAuthHeader("GET"));
+                    xhr.setRequestHeader("Expires", "-1");
+                    xhr.setRequestHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+                    xhr.setRequestHeader("Pragma", "no-cache");
+                },
+                success: function (content) {
+                    console.log("verifyPuk:",content);
+                    var xml = content;
+                    var lockresult = $(xml).find("lockresult").text();
+                    var remaining = $(xml).find("remaining").text();
+
+                    if (lockresult == 1) {
+                        toMainHtml();
+                        sessionStorage.setItem('loginStatus',"login")
+                    } else {
+                        alert(I18N("j","pukError",remaining));
+                    }
+                }
+            });
+        }
+        function cancelPin () {
+            toMainHtml();
+            sessionStorage.setItem('loginStatus',"login")
+        }
+
+        function closePIN () {
+            var lock = 0;
+            if ($('#verifyPinLock').is(':checked')) {
+                lock = 0;
+            } else {
+                lock = 1;
+            }
+
+            var PINNum = $("#verifyPinNum").val();
+
+            if (PINNum === "" ) {
+                alert(I18N("j","pinEmpty"));
+                return false;
+            }
+
+            var pin = {
+                "lock": lock,
+                "pin": PINNum.toString(),
+            }
+
+            var url = LOCAL_HOST_IP + "changePinLock";
+            $.ajax({
+                url: url,
+                dataType: "jsonp",
+                data: {pin: JSON.stringify(pin)},
+                async: false,
+                cache: false,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("Authorization", getAuthHeader("GET"));
+                    xhr.setRequestHeader("Expires", "-1");
+                    xhr.setRequestHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+                    xhr.setRequestHeader("Pragma", "no-cache");
+                },
+                success: function (content) {
+                    var state = content.state;
+                    if (state === 1) {
+
+                    } else {
+
+                    }
+                }
+            });
+        }
+    </script>
+</head>
+<body onload="frmLoad();" onkeydown="keyLogin();">
+<div class="page" id="Page">
+    <div class="app flex-col">
+        <div class="header flex-row justify-between" id="loginHeader">
+                <img id="loginLogo" style="margin-top: 6px; margin-right: 20px; height: 32px; display: none">
+            <span class="product"><script>I18N("h", "lRouter");</script></span>
+        </div>
+        <div class="menu" id="loginLogo2">
+            <!-- <div class="logo2"></div> -->
+        </div>
+        <div class="appbody flex-row justify-between" id="loginBody">
+            <div class="bd_left"></div>
+            <div class="bd_right">
+                <div class="box_input flex-col">
+                    <div class="box_langu" style="display: block">
+                        <select id="Language" class="langu_select" onchange="switch_Language(this.value)">
+                            <option class="langu_opt" value="en_us" select>English</option>
+                            <option class="langu_opt" value="zh_cn">简体中文</option>
+                        </select>
+                    </div>
+
+                    <input id="tbarouter_username" type="text" class="username" maxlength="20"/>
+
+                    <div class="pwd">
+                        <input id="tbarouter_password" type="password" class="password" maxlength="20"/>
+                        <img style="display: block" id="showPassword" class="eye" onclick="showPassword()" src="../images/login/login_password_no.png">
+                        <div class="pwd_forget" style="display: none">
+                            <div class="forget_txt"><script>I18N("h", "lForget");</script></div>
+                        </div>
+                    </div>
+                    <button type="button" class="button_login flex-col" onclick="Login()">
+                        <span class="login_txt"><script>I18N("h", "lLogin");</script></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="verifyPin" class="verifyPin" style="display: none">
+            <div class="verifyPinTitle" id="verifyPinTitle">
+                <script>I18N("h", "verifyPinTitle");</script>
+            </div>
+            <input id="verifyPinNum" class="verifyPinNum" placeholder="">
+            <div style="display: none; width: 420px;height: 20px;margin: 20px 0 0 40px">
+                <input id="verifyPinLock" type="checkbox" style="width: 20px;height: 20px" checked>
+                <span id="closePinLock" class="closePinLock" style="margin-left: 10px">
+                    <script>I18N("h", "closePinLock");</script>
+                </span>
+            </div>
+            <div id="verifyPinContent" class="verifyPinContent">
+                <script>I18N("h", "verifyPinContent");</script>
+            </div>
+            <div style="display: flex; width: 420px;height: 40px;margin-left: 40px;margin-top: 30px">
+                <button id="verifyPinBack" class="verifyPinBack" onclick="cancelPin()"> <script>I18N("h", "verifyPinBack");</script></button>
+                <button id="verifyPinApply" class="verifyPinApply" onclick="verifyPin()"> <script>I18N("h", "verifyPinApply");</script></button>
+            </div>
+        </div>
+        <div id="verifyPuk" class="verifyPin" style="display: none">
+            <div class="verifyPinTitle" id="verifyPukTitle">
+                <script>I18N("h", "verifyPukTitle");</script>
+            </div>
+            <input id="verifyPukNum" class="verifyPinNum" placeholder="">
+            <div style="display: none; width: 420px;height: 20px;margin: 20px 0 0 40px">
+                <input id="verifyPukLock" type="checkbox" style="width: 20px;height: 20px" checked>
+                <span id="closePukLock" class="closePinLock" style="margin-left: 10px">
+                    <script>I18N("h", "closePukLock");</script>
+                </span>
+            </div>
+            <div id="verifyPukContent" class="verifyPinContent">
+                <script>I18N("h", "verifyPukContent");</script>
+            </div>
+            <div style="display: flex; width: 420px;height: 40px;margin-left: 40px;margin-top: 30px">
+                <button id="verifyPukBack" class="verifyPinBack" onclick="cancelPin()"> <script>I18N("h", "verifyPinBack");</script></button>
+                <button id="verifyPukApply" class="verifyPinApply" onclick="verifyPuk()"> <script>I18N("h", "verifyPinApply");</script></button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
