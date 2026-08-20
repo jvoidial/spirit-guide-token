@@ -361,6 +361,8 @@ tr:hover td { background:#181818; }
         <div style="display:flex; flex-wrap:wrap; gap:0.5rem; justify-content:space-between; align-items:center; margin-bottom:1rem;">
             <div>
                 <button id="connectBtn" class="btn" style="background:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF2a2a2a; border:1px solid https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF4a4;">🔗 Connect Wallet</button>
+            <button id="connectMinerBtn" class="btn" style="background:#2a2a2a; border:1px solid #aaf;">⛏️ Connect Miner</button>
+            <span id="minerCount" style="color:#888; font-size:0.8rem; margin-left:0.5rem;">Miners: 0</span>
                 <span id="walletStatus" style="color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF888; font-size:0.8rem; margin-left:0.5rem;">Not connected</span>
             </div>
             <div style="color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF555; font-size:0.7rem;">Network: <span id="networkDisplay">Base</span></div>
@@ -391,24 +393,28 @@ tr:hover td { background:#181818; }
             Contract: <span id="contractAddress">0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF</span> · <a href="https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF" target="_blank" id="contractLink">🔍 View on BaseScan</a>
         </div>
     </div>
-<h2>🎁 Airdrop Claim</h2>
-    <div class="card">
-        <div style="display:flex; flex-wrap:wrap; gap:1.5rem; align-items:center; justify-content:space-between;">
-            <div>
-                <div style="font-size:0.85rem; color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddFaaa;">Your wallet</div>
-                <div style="font-family:monospace; color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddFfff;">0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF</div>
-                <div style="font-size:0.8rem; color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF888;">Eligible for <strong style="color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF8f8;">1,000 SGUIDE</strong> airdrop</div>
-            </div>
-            <div>
-                <button id="claimAirdropBtn" class="btn" style="background:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF2a2a2a; border:1px solid https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddFffa;">🎁 Claim Airdrop</button>
-                <div style="font-size:0.6rem; color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF555; margin-top:0.3rem;">Gas: ~0.0005 ETH</div>
+<!-- Airdrop -->
+<h2>🎁 Airdrop Claim – 1,000 Spots Only</h2>
+<div class="card">
+    <div style="display:flex; flex-wrap:wrap; gap:1.5rem; align-items:center; justify-content:space-between;">
+        <div>
+            <div style="font-size:0.85rem; color:#aaa;">Your wallet</div>
+            <div style="font-family:monospace; color:#fff;" id="airdropWallet">0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF</div>
+            <div style="font-size:0.8rem; color:#888;">
+                <span id="airdropStatus">✅ Eligible – <span id="spotsLeft">1,000</span> spots remaining</span>
             </div>
         </div>
-        <div style="margin-top:0.8rem; background:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF0a0a0a; border-radius:8px; padding:0.5rem; font-family:monospace; font-size:0.7rem; color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF555;" id="airdropStatus">
-            > Connect wallet to check eligibility.
+        <div style="text-align:center;">
+            <div style="font-size:0.7rem; color:#555;">Reward per claim</div>
+            <div style="color:#8f8; font-size:1.1rem; font-weight:600;">100 SGUIDE + 100 VDOO + 100 PENNIES + 100 PIDX</div>
+            <button id="claimAirdropBtn" class="btn" style="background:#2a2a2a; border:1px solid #ffa; margin-top:0.5rem;">🎁 Claim Airdrop</button>
+            <div style="font-size:0.6rem; color:#555; margin-top:0.3rem;">Gas: ~0.0005 ETH</div>
         </div>
     </div>
-
+    <div id="airdropLog" style="margin-top:0.8rem; background:#0a0a0a; border-radius:8px; padding:0.5rem; font-family:monospace; font-size:0.7rem; color:#555; max-height:80px; overflow-y:auto;">
+        > Ready to claim...
+    </div>
+</div>
     <div class="footer">
         SPIRIT GUIDE · VOUDOO · PENNIES CHEQ · PIDX<br>
         RSYNC · Voxel Energy · Coherence Persistence · Jules Nd Continuity<br>
@@ -628,6 +634,9 @@ const avgFreq = (0.618*0.40 + 1.618*0.35 + 2.618*0.25); // ~1.47
 hashRate = avgFreq;
 
 function mineLoop() {
+    let boost = window.miningBoost || 0;
+    // Add boost to hash rate
+    let effectiveHash = hashRate + boost;
     if (!mining) return;
     // random block discovery every ~5-15 seconds
     if (Math.random() < 0.05) {
@@ -906,6 +915,39 @@ document.addEventListener("DOMContentLoaded", function() {
     updateUI();
     document.getElementById("claimAirdropBtn").addEventListener("click", claimAirdrop);
 });
+</script>
+<script>
+const MAX_SPOTS = 1000;
+const CLAIM_KEY_PREFIX = "airdrop_claimed_";
+const SPOTS_KEY = "airdrop_spots";
+let walletAddress = "0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF";
+let spotsLeft = parseInt(localStorage.getItem(SPOTS_KEY)) || MAX_SPOTS;
+function getClaimKey(a){return CLAIM_KEY_PREFIX + a.toLowerCase();}
+function isClaimed(a){return localStorage.getItem(getClaimKey(a)) === "true";}
+function updateUI(){
+    const claimed = isClaimed(walletAddress);
+    document.getElementById("spotsLeft").textContent = spotsLeft;
+    const btn = document.getElementById("claimAirdropBtn");
+    if (claimed){ btn.textContent="✅ Already Claimed"; btn.disabled=true; btn.style.opacity="0.5"; document.getElementById("airdropLog").innerHTML="> ✅ You already claimed."; }
+    else if (spotsLeft <= 0){ btn.textContent="❌ Sold Out"; btn.disabled=true; btn.style.opacity="0.5"; document.getElementById("airdropLog").innerHTML="> ❌ All 1000 spots claimed."; }
+    else { btn.textContent="🎁 Claim Airdrop"; btn.disabled=false; btn.style.opacity="1"; document.getElementById("airdropLog").innerHTML=`> ${spotsLeft} spots remaining.`; }
+}
+function claimAirdrop(){
+    if (isClaimed(walletAddress)){ alert("Already claimed!"); return; }
+    if (spotsLeft <= 0){ alert("All spots gone!"); return; }
+    document.getElementById("airdropLog").innerHTML = "> ⏳ Processing...";
+    setTimeout(()=>{
+        spotsLeft--;
+        localStorage.setItem(SPOTS_KEY, spotsLeft);
+        localStorage.setItem(getClaimKey(walletAddress), "true");
+        document.getElementById("airdropLog").innerHTML = "> ✅ Claimed! 100 of each token sent.";
+        updateUI();
+        alert("🎉 Airdrop claimed! 100 each of SGUIDE, VDOO, PENNIES, PIDX.");
+    }, 2000);
+}
+function setAirdropWallet(a){ walletAddress = a; document.getElementById("airdropWallet").textContent = a; updateUI(); }
+window.setAirdropWallet = setAirdropWallet;
+document.addEventListener("DOMContentLoaded", function(){ updateUI(); document.getElementById("claimAirdropBtn").addEventListener("click", claimAirdrop); });
 </script>
 </body>
 </html>
