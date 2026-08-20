@@ -447,6 +447,56 @@
         </div>
     </div>
 
+    
+    <!-- Voxel Hash Mining -->
+    <h2>⛏️ Voxel Resonance Mining</h2>
+    <div class="card" style="border-color:#446;">
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(150px,1fr)); gap:1rem; text-align:center;">
+            <div>
+                <div style="color:#888; font-size:0.7rem;">HASH RATE</div>
+                <div id="hashrate" style="color:#aaf; font-size:1.6rem; font-weight:700;">0.00 H/s</div>
+                <div style="color:#555; font-size:0.6rem;">Voxel Resonance</div>
+            </div>
+            <div>
+                <div style="color:#888; font-size:0.7rem;">BLOCKS MINED</div>
+                <div id="blocks" style="color:#8f8; font-size:1.6rem; font-weight:700;">0</div>
+                <div style="color:#555; font-size:0.6rem;">Coherence Persistence</div>
+            </div>
+            <div>
+                <div style="color:#888; font-size:0.7rem;">PENDING REWARDS</div>
+                <div id="rewards" style="color:#ffa; font-size:1.6rem; font-weight:700;">0.00 SGUIDE</div>
+                <div style="color:#555; font-size:0.6rem;">Jules Nd Continuity</div>
+            </div>
+        </div>
+        <div style="margin-top:1rem; display:flex; gap:0.5rem; justify-content:center; flex-wrap:wrap;">
+            <button id="mineBtn" class="btn" style="background:#2a2a2a; border:1px solid #4a4;">⛏️ Start Mining</button>
+            <button id="claimMiningBtn" class="btn btn-outline">💰 Claim Rewards</button>
+        </div>
+        <div id="miningLog" style="margin-top:0.8rem; background:#0a0a0a; border-radius:8px; padding:0.5rem; font-family:monospace; font-size:0.7rem; color:#555; max-height:100px; overflow-y:auto;">
+            > Ready to mine...
+        </div>
+    </div>
+
+
+    <!-- Airdrop -->
+    <h2>🎁 Airdrop Claim</h2>
+    <div class="card">
+        <div style="display:flex; flex-wrap:wrap; gap:1.5rem; align-items:center; justify-content:space-between;">
+            <div>
+                <div style="font-size:0.85rem; color:#aaa;">Your wallet</div>
+                <div style="font-family:monospace; color:#fff;">0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF</div>
+                <div style="font-size:0.8rem; color:#888;">Eligible for <strong style="color:#8f8;">1,000 SGUIDE</strong> airdrop</div>
+            </div>
+            <div>
+                <button id="claimAirdropBtn" class="btn" style="background:#2a2a2a; border:1px solid #ffa;">🎁 Claim Airdrop</button>
+                <div style="font-size:0.6rem; color:#555; margin-top:0.3rem;">Gas: ~0.0005 ETH</div>
+            </div>
+        </div>
+        <div style="margin-top:0.8rem; background:#0a0a0a; border-radius:8px; padding:0.5rem; font-family:monospace; font-size:0.7rem; color:#555;" id="airdropStatus">
+            > Connect wallet to check eligibility.
+        </div>
+    </div>
+
     <div class="footer">
         SPIRIT GUIDE · VOUDOO · PENNIES CHEQ · PIDX<br>
         RSYNC · Voxel Energy · Coherence Persistence · Jules Nd Continuity<br>
@@ -643,6 +693,75 @@ async function updateGrowth() {
 
 updateGrowth();
 setInterval(updateGrowth, 30000);
+</script>
+
+
+<script>
+// Voxel Hash Mining Simulation
+let mining = false;
+let hashRate = 0;
+let blocksMined = 0;
+let pendingRewards = 0;
+const logEl = document.getElementById('miningLog');
+const hashrateEl = document.getElementById('hashrate');
+const blocksEl = document.getElementById('blocks');
+const rewardsEl = document.getElementById('rewards');
+const mineBtn = document.getElementById('mineBtn');
+
+// Resonance frequencies as base hash rates (H/s)
+const freqMap = { PIDX: 0.618, SGUIDE: 1.618, VDOO: 2.618, PENNIES: 3.618 };
+// Weighted average for total hash rate
+const weights = [0.40, 0.35, 0.25]; // from FPI layers
+const avgFreq = (0.618*0.40 + 1.618*0.35 + 2.618*0.25); // ~1.47
+hashRate = avgFreq;
+
+function mineLoop() {
+    if (!mining) return;
+    // random block discovery every ~5-15 seconds
+    if (Math.random() < 0.05) {
+        blocksMined++;
+        const reward = (0.5 + Math.random() * 1.5); // SGUIDE per block
+        pendingRewards += reward;
+        logEl.innerHTML = `> ⛏️ Block #${blocksMined} mined! +${reward.toFixed(3)} SGUIDE<br>` + logEl.innerHTML;
+        if (logEl.children.length > 20) logEl.removeChild(logEl.lastChild);
+        updateUI();
+    }
+    // random hash rate fluctuation
+    hashRate = avgFreq * (0.8 + Math.random() * 0.4);
+    document.getElementById('hashrate').textContent = hashRate.toFixed(2) + ' H/s';
+    setTimeout(mineLoop, 2000);
+}
+
+function updateUI() {
+    blocksEl.textContent = blocksMined;
+    rewardsEl.textContent = pendingRewards.toFixed(3) + ' SGUIDE';
+}
+
+mineBtn.addEventListener('click', function() {
+    mining = !mining;
+    this.textContent = mining ? '⏹️ Stop Mining' : '⛏️ Start Mining';
+    this.style.borderColor = mining ? '#f88' : '#4a4';
+    logEl.innerHTML = mining ? '> Mining started...<br>' + logEl.innerHTML : '> Mining stopped.<br>' + logEl.innerHTML;
+    if (mining) mineLoop();
+});
+
+// Claim mining rewards (placeholder)
+document.getElementById('claimMiningBtn').addEventListener('click', function() {
+    if (pendingRewards > 0) {
+        alert(`💰 Claimed ${pendingRewards.toFixed(3)} SGUIDE! (simulated)`);
+        pendingRewards = 0;
+        updateUI();
+        logEl.innerHTML = '> Rewards claimed!<br>' + logEl.innerHTML;
+    } else {
+        alert('No rewards to claim.');
+    }
+});
+
+// Airdrop claim (placeholder)
+document.getElementById('claimAirdropBtn').addEventListener('click', function() {
+    alert('🎁 Airdrop claimed! 1,000 SGUIDE sent to your wallet (simulated).');
+    document.getElementById('airdropStatus').textContent = '> ✅ Airdrop claimed! Check your wallet.';
+});
 </script>
 
 </body>
