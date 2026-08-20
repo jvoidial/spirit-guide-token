@@ -1,0 +1,201 @@
+{
+  "dna_length": 669,
+  "codon_count": 223,
+  "total_notes": 223,
+  "immune_mapping": [
+    {
+      "codon_start": 0,
+      "codon_end": 10,
+      "segment_hash": "36fdea",
+      "matched_gene": "IL10",
+      "matched_cell": "Regulatory B cell",
+      "signature": "AGCTAG"
+    },
+    {
+      "codon_start": 10,
+      "codon_end": 20,
+      "segment_hash": "321e70",
+      "matched_gene": "IL10",
+      "matched_cell": "Regulatory B cell",
+      "signature": "AGCTAG"
+    },
+    {
+      "codon_start": 20,
+      "codon_end": 30,
+      "segment_hash": "231baf",
+      "matched_gene": "MHC_II",
+      "matched_cell": "Dendritic cell",
+      "signature": "CTAGCT"
+    },
+    {
+      "codon_start": 30,
+      "codon_end": 40,
+      "segment_hash": "f4c0e9",
+      "matched_gene": "CTLA4",
+      "matched_cell": "Regulatory T cell",
+      "signature": "GCTAGC"
+    },
+    {
+      "codon_start": 40,
+      "codon_end": 50,
+      "segment_hash": "07d283",
+      "matched_gene": "CTLA4",
+      "matched_cell": "Regulatory T cell",
+      "signature": "GCTAGC"
+    },
+    {
+      "codon_start": 50,
+      "codon_end": 60,
+      "segment_hash": "0bf84c",
+      "matched_gene": "CCR5",
+      "matched_cell": "Memory T cell",
+      "signature": "CGTAGC"
+    },
+    {
+      "codon_start": 60,
+      "codon_end": 70,
+      "segment_hash": "422213",
+      "matched_gene": "IFNG",
+      "matched_cell": "NK cell",
+      "signature": "ACGTAC"
+    },
+    {
+      "codon_start": 70,
+      "codon_end": 80,
+      "segment_hash": "31da95",
+      "matched_gene": "CXCR4",
+      "matched_cell": "Naive T cell",
+      "signature": "TGCGTA"
+    },
+    {
+      "codon_start": 80,
+      "codon_end": 90,
+      "segment_hash": "ac1e76",
+      "matched_gene": "IL2",
+      "matched_cell": "T helper 1",
+      "signature": "GACATC"
+    },
+    {
+      "codon_start": 90,
+      "codon_end": 100,
+      "segment_hash": "ef085b",
+      "matched_gene": "CXCR4",
+      "matched_cell": "Naive T cell",
+      "signature": "TGCGTA"
+    },
+    {
+      "codon_start": 100,
+      "codon_end": 110,
+      "segment_hash": "eb9b09",
+      "matched_gene": "IFNG",
+      "matched_cell": "NK cell",
+      "signature": "ACGTAC"
+    },
+    {
+      "codon_start": 110,
+      "codon_end": 120,
+      "segment_hash": "36e3c5",
+      "matched_gene": "IL4",
+      "matched_cell": "T helper 2",
+      "signature": "CTGTAC"
+    },
+    {
+      "codon_start": 120,
+      "codon_end": 130,
+      "segment_hash": "58685f",
+      "matched_gene": "TCR_beta",
+      "matched_cell": "CD4+ T cell",
+      "signature": "GTCGAC"
+    },
+    {
+      "codon_start": 130,
+      "codon_end": 140,
+      "segment_hash": "528399",
+      "matched_gene": "TCR_beta",
+      "matched_cell": "CD4+ T cell",
+      "signature": "GTCGAC"
+    },
+    {
+      "codon_start": 140,
+      "codon_end": 150,
+      "segment_hash": "e0a1d0",
+      "matched_gene": "CCR5",
+      "matched_cell": "Memory T cell",
+      "signature": "CGTAGC"
+    },
+    {
+      "codon_start": 150,
+      "codon_end": 160,
+      "segment_hash": "018b8a",
+      "matched_gene": "IL10",
+      "matched_cell": "Regulatory B cell",
+      "signature": "AGCTAG"
+    },
+    {
+      "codon_start": 160,
+      "codon_end": 170,
+      "segment_hash": "6c92d2",
+      "matched_gene": "MHC_I",
+      "matched_cell": "Antigen-presenting cell",
+      "signature": "ATCGAT"
+    },
+    {
+      "codon_start": 170,
+      "codon_end": 180,
+      "segment_hash": "d3aedd",
+      "matched_gene": "IL4",
+      "matched_cell": "T helper 2",
+      "signature": "CTGTAC"
+    },
+    {
+      "codon_start": 180,
+      "codon_end": 190,
+      "segment_hash": "ff6489",
+      "matched_gene": "TNF",
+      "matched_cell": "Macrophage",
+      "signature": "GCTACG"
+    },
+    {
+      "codon_start": 190,
+      "codon_end": 200,
+      "segment_hash": "c759f2",
+      "matched_gene": "MHC_I",
+      "matched_cell": "Antigen-presenting cell",
+      "signature": "ATCGAT"
+    },
+    {
+      "codon_start": 200,
+      "codon_end": 210,
+      "segment_hash": "b04f36",
+      "matched_gene": "IL2",
+      "matched_cell": "T helper 1",
+      "signature": "GACATC"
+    },
+    {
+      "codon_start": 210,
+      "codon_end": 220,
+      "segment_hash": "1ced7b",
+      "matched_gene": "IFNG",
+      "matched_cell": "NK cell",
+      "signature": "ACGTAC"
+    },
+    {
+      "codon_start": 220,
+      "codon_end": 223,
+      "segment_hash": "d34632",
+      "matched_gene": "IL10",
+      "matched_cell": "Regulatory B cell",
+      "signature": "AGCTAG"
+    }
+  ],
+  "audio_file": "tonal_immune_beats.wav",
+  "note_frequencies": {
+    "C": 261.63,
+    "D": 293.66,
+    "E": 329.63,
+    "G": 392.0,
+    "A": 440.0
+  },
+  "note_duration_sec": 0.25,
+  "disclaimer": "This mapping is a simulation. Immune cell matching is based on hashing DNA segments, not actual biology. The audio is a sonification of the DNA sequence."
+}
