@@ -52,7 +52,7 @@ tr:hover td { background:#181818; }
 .pred-item .trend { font-size:0.7rem; color:#888; }
 @media (max-width:640px) { h1{font-size:2rem;} h2{font-size:1.3rem;} .card{padding:1.2rem;} .card-grid{grid-template-columns:1fr;} }
 </style>
-</head>
+<script src="https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js"></script></head>
 <body>
 <div class="container">
 <div class="container">
@@ -1085,4 +1085,86 @@ setTimeout(function() {
 }, 3000);
 </script>
 </body>
-</html>
+</html><script>
+// Real contract integration
+let stakingContract = null;
+let airdropContract = null;
+let signer = null;
+
+const STAKING_ABI = [
+    "function stake(uint256 amount) external",
+    "function withdraw(uint256 amount) external",
+    "function claimRewards() external",
+    "function getPendingRewards(address user) view returns (uint256)",
+    "function getStakedBalance(address user) view returns (uint256)"
+];
+const AIRDROP_ABI = [
+    "function claim(uint256 amount) external",
+    "function claimed(address) view returns (bool)",
+    "function claimedCount() view returns (uint256)",
+    "function maxClaims() view returns (uint256)"
+];
+
+function initContracts() {
+    const stakingAddr = document.getElementById('stakingAddr').value;
+    const airdropAddr = document.getElementById('airdropAddr').value;
+    if (window.ethereum) {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        signer = provider.getSigner();
+        stakingContract = new ethers.Contract(stakingAddr, STAKING_ABI, signer);
+        airdropContract = new ethers.Contract(airdropAddr, AIRDROP_ABI, signer);
+        document.getElementById('contractStatus').textContent = '✅ Contracts loaded';
+    } else {
+        document.getElementById('contractStatus').textContent = '⚠️ MetaMask not detected';
+    }
+}
+
+document.getElementById('updateContractsBtn').addEventListener('click', initContracts);
+
+// Override mining functions with real ones
+async function realStake() {
+    if (!stakingContract) return alert('Set contract address first.');
+    const amount = prompt('Enter SGUIDE amount to stake:');
+    if (!amount) return;
+    try {
+        const tx = await stakingContract.stake(ethers.utils.parseUnits(amount, 18));
+        await tx.wait();
+        alert('Staked ' + amount + ' SGUIDE!');
+    } catch (e) {
+        alert('Error: ' + e.message);
+    }
+}
+async function realClaimRewards() {
+    if (!stakingContract) return alert('Set contract address first.');
+    try {
+        const tx = await stakingContract.claimRewards();
+        await tx.wait();
+        alert('Rewards claimed!');
+    } catch (e) {
+        alert('Error: ' + e.message);
+    }
+}
+async function realAirdropClaim() {
+    if (!airdropContract) return alert('Set contract address first.');
+    const amount = ethers.utils.parseUnits('100', 18); // 100 tokens
+    try {
+        const tx = await airdropContract.claim(amount);
+        await tx.wait();
+        alert('Airdrop claimed! 100 SGUIDE (and others if deployed).');
+    } catch (e) {
+        alert('Error: ' + e.message);
+    }
+}
+
+// Hook up to existing buttons (replace placeholder functions)
+// We'll attach after DOM ready
+document.addEventListener('DOMContentLoaded', function() {
+    // Replace stake, claim, airdrop claim
+    const stakeBtn = document.getElementById('stakeBtn');
+    const claimBtn = document.getElementById('claimBtn');
+    const claimAirdropBtn = document.getElementById('claimAirdropBtn');
+    if (stakeBtn) stakeBtn.onclick = realStake;
+    if (claimBtn) claimBtn.onclick = realClaimRewards;
+    if (claimAirdropBtn) claimAirdropBtn.onclick = realAirdropClaim;
+});
+</script>
