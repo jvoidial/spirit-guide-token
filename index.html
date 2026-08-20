@@ -215,31 +215,57 @@ tr:hover td { background:#181818; }
     </div>
 
     <!-- Topology Map (SVG) -->
-    <h2>🗺️ Ecosystem Topology Map</h2>
-    <div class="card" style="text-align:center;">
-        <svg viewBox="0 0 500 300" style="width:100%; max-width:600px; margin:0 auto; display:block;">
-            <circle cx="250" cy="150" r="120" fill="none" stroke="https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF446" stroke-width="2" stroke-dasharray="6,6"/>
-            <circle cx="250" cy="150" r="80" fill="none" stroke="https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF4a4" stroke-width="2" stroke-dasharray="4,4"/>
-            <circle cx="250" cy="150" r="40" fill="none" stroke="https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddFaaf" stroke-width="2"/>
-            <text x="250" y="145" text-anchor="middle" fill="https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddFaaf" font-size="12" font-weight="bold">Quantum</text>
-            <text x="250" y="160" text-anchor="middle" fill="https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddFaaf" font-size="10">PIDX</text>
-            <text x="250" y="50" text-anchor="middle" fill="https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF8f8" font-size="12">Resonance</text>
-            <text x="250" y="35" text-anchor="middle" fill="https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF8f8" font-size="10">SGUIDE · VDOO</text>
-            <text x="250" y="240" text-anchor="middle" fill="https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddFffa" font-size="12">Coherence</text>
-            <text x="250" y="255" text-anchor="middle" fill="https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddFffa" font-size="10">PENNIES</text>
-            <line x1="250" y1="60" x2="250" y2="95" stroke="https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF555" stroke-width="1.5" marker-end="url(https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddFarrow)"/>
-            <line x1="250" y1="200" x2="250" y2="225" stroke="https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF555" stroke-width="1.5" marker-end="url(https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddFarrow)"/>
-            <defs>
-                <marker id="arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
-                    <polygon points="0 0, 10 3.5, 0 7" fill="https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF555"/>
-                </marker>
-            </defs>
-        </svg>
-        <p style="color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF888; font-size:0.8rem; margin-top:0.5rem;">Quantum → Resonance → Coherence</p>
-    </div>
-
-    <!-- Coherence & Voxel Resonance -->
-    <h2>⚡ Coherence Persistence &amp; Voxel Resonance</h2>
+<h2>🗺️ Ecosystem Topology Map</h2>
+<div class="card" style="text-align:center; background: #0a0a0a; border-color: #446;">
+    <svg viewBox="0 0 500 350" style="width:100%; max-width:600px; margin:0 auto; display:block;">
+        <defs>
+            <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#aaf" stop-opacity="0.3"/>
+                <stop offset="100%" stop-color="#aaf" stop-opacity="0"/>
+            </radialGradient>
+            <filter id="blur"><feGaussianBlur stdDeviation="2"/></filter>
+        </defs>
+        <!-- Background glow -->
+        <circle cx="250" cy="175" r="140" fill="url(#glow)" filter="url(#blur)"/>
+        <!-- Rotating Orbits -->
+        <circle cx="250" cy="175" r="120" fill="none" stroke="#446" stroke-width="1.5" stroke-dasharray="6,6">
+            <animateTransform attributeName="transform" type="rotate" from="0 250 175" to="360 250 175" dur="20s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="250" cy="175" r="80" fill="none" stroke="#4a4" stroke-width="1.5" stroke-dasharray="4,4">
+            <animateTransform attributeName="transform" type="rotate" from="0 250 175" to="-360 250 175" dur="15s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="250" cy="175" r="40" fill="none" stroke="#aaf" stroke-width="2">
+            <animateTransform attributeName="transform" type="rotate" from="0 250 175" to="360 250 175" dur="10s" repeatCount="indefinite"/>
+        </circle>
+        <!-- Quantum Core (pulsing) -->
+        <circle cx="250" cy="175" r="18" fill="#aaf" opacity="0.9">
+            <animate attributeName="r" values="18;24;18" dur="2s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.9;0.5;0.9" dur="2s" repeatCount="indefinite"/>
+        </circle>
+        <text x="250" y="172" text-anchor="middle" fill="#000" font-size="10" font-weight="bold">PIDX</text>
+        <!-- Resonance nodes (floating) -->
+        <circle cx="250" cy="90" r="12" fill="#8f8">
+            <animate attributeName="cy" values="90;75;90" dur="3s" repeatCount="indefinite"/>
+        </circle>
+        <text x="250" y="80" text-anchor="middle" fill="#000" font-size="7" font-weight="bold">SGUIDE</text>
+        <circle cx="250" cy="260" r="12" fill="#ffa">
+            <animate attributeName="cy" values="260;275;260" dur="3s" repeatCount="indefinite"/>
+        </circle>
+        <text x="250" y="270" text-anchor="middle" fill="#000" font-size="7" font-weight="bold">PENNIES</text>
+        <!-- Flow arrows with moving dash -->
+        <line x1="250" y1="90" x2="250" y2="135" stroke="#8f8" stroke-width="2" stroke-dasharray="4,4">
+            <animate attributeName="stroke-dashoffset" from="0" to="8" dur="1s" repeatCount="indefinite"/>
+        </line>
+        <line x1="250" y1="215" x2="250" y2="248" stroke="#ffa" stroke-width="2" stroke-dasharray="4,4">
+            <animate attributeName="stroke-dashoffset" from="0" to="8" dur="1s" repeatCount="indefinite"/>
+        </line>
+        <!-- Labels -->
+        <text x="250" y="45" text-anchor="middle" fill="#8f8" font-size="14" font-weight="bold">Resonance Layer</text>
+        <text x="250" y="305" text-anchor="middle" fill="#ffa" font-size="14" font-weight="bold">Coherence Layer</text>
+        <text x="250" y="12" text-anchor="middle" fill="#aaf" font-size="12">Quantum Layer</text>
+    </svg>
+    <p style="color:#888; font-size:0.8rem; margin-top:0.5rem;">⚡ Energy flows: Quantum → Resonance → Coherence</p>
+</div>
     <div class="card resonance-glow">
         <div class="resonance-quote">
             “Unlocking the resonance voxels – where every token echoes the persistence of coherence.”
