@@ -398,10 +398,14 @@ tr:hover td { background:#181818; }
 <h2>🎁 Airdrop Claim – 1,000 Spots Only</h2>
 <div class="card">
     <div style="display:flex; flex-wrap:wrap; gap:1.5rem; align-items:center; justify-content:space-between;">
-        <div>
-            <div style="font-size:0.85rem; color:#aaa;">Your wallet</div>
-            <div style="font-family:monospace; color:#fff;" id="airdropWallet">0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF</div>
-            <div style="font-size:0.8rem; color:#888;">
+        <div style="flex:1; min-width:200px;">
+            <div style="font-size:0.85rem; color:#aaa;">Your wallet address</div>
+            <div style="display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap;">
+                <input id="airdropWalletInput" type="text" placeholder="0x..." style="flex:1; min-width:200px; background:#1a1a1a; color:#eee; border:1px solid #333; padding:0.4rem; border-radius:8px; font-family:monospace;">
+                <button id="setWalletBtn" class="btn" style="background:#2a2a2a; border:1px solid #4a4; padding:0.3rem 1rem;">Set Address</button>
+                <button id="connectWalletAirdrop" class="btn" style="background:#2a2a2a; border:1px solid #aaf; padding:0.3rem 1rem;">🔗 Connect MetaMask</button>
+            </div>
+            <div style="font-size:0.8rem; color:#888; margin-top:0.3rem;">
                 <span id="airdropStatus">✅ Eligible – <span id="spotsLeft">1,000</span> spots remaining</span>
             </div>
         </div>
@@ -413,7 +417,7 @@ tr:hover td { background:#181818; }
         </div>
     </div>
     <div id="airdropLog" style="margin-top:0.8rem; background:#0a0a0a; border-radius:8px; padding:0.5rem; font-family:monospace; font-size:0.7rem; color:#555; max-height:80px; overflow-y:auto;">
-        > Ready to claim...
+        > Enter your wallet address or connect MetaMask.
     </div>
 </div>
     <div class="footer">
@@ -1167,4 +1171,135 @@ document.addEventListener('DOMContentLoaded', function() {
     if (claimBtn) claimBtn.onclick = realClaimRewards;
     if (claimAirdropBtn) claimAirdropBtn.onclick = realAirdropClaim;
 });
+</script>
+<script>
+// Airdrop with user-defined wallet
+(function() {
+    const MAX_SPOTS = 1000;
+    const SPOTS_KEY = "airdrop_spots";
+    const CLAIM_KEY_PREFIX = "airdrop_claimed_";
+
+    let walletAddress = localStorage.getItem("airdrop_wallet") || "";
+    let spotsLeft = parseInt(localStorage.getItem(SPOTS_KEY)) || MAX_SPOTS;
+
+    const input = document.getElementById('airdropWalletInput');
+    const setBtn = document.getElementById('setWalletBtn');
+    const connectMetaMaskBtn = document.getElementById('connectWalletAirdrop');
+    const claimBtn = document.getElementById('claimAirdropBtn');
+    const statusSpan = document.getElementById('airdropStatus');
+    const spotsSpan = document.getElementById('spotsLeft');
+    const logDiv = document.getElementById('airdropLog');
+
+    function getClaimKey(addr) { return CLAIM_KEY_PREFIX + addr.toLowerCase(); }
+    function isClaimed(addr) { return localStorage.getItem(getClaimKey(addr)) === "true"; }
+
+    function updateUI() {
+        spotsSpan.textContent = spotsLeft;
+        const addr = walletAddress.trim();
+        if (!addr) {
+            statusSpan.textContent = "⚠️ Please set your wallet address.";
+            claimBtn.disabled = true;
+            claimBtn.style.opacity = "0.5";
+            logDiv.innerHTML = "> Enter your wallet address or connect MetaMask.";
+            return;
+        }
+        if (!/^0x[a-fA-F0-9]{40}$/.test(addr)) {
+            statusSpan.textContent = "❌ Invalid address format.";
+            claimBtn.disabled = true;
+            claimBtn.style.opacity = "0.5";
+            logDiv.innerHTML = "> Invalid Ethereum address. Please check and try again.";
+            return;
+        }
+        const claimed = isClaimed(addr);
+        if (claimed) {
+            statusSpan.textContent = "✅ You have already claimed.";
+            claimBtn.textContent = "✅ Already Claimed";
+            claimBtn.disabled = true;
+            claimBtn.style.opacity = "0.5";
+            logDiv.innerHTML = "> You already claimed your airdrop.";
+        } else if (spotsLeft <= 0) {
+            statusSpan.textContent = "❌ All 1,000 spots are gone.";
+            claimBtn.textContent = "❌ Sold Out";
+            claimBtn.disabled = true;
+            claimBtn.style.opacity = "0.5";
+            logDiv.innerHTML = "> All spots have been claimed.";
+        } else {
+            statusSpan.textContent = `✅ Eligible – ${spotsLeft} spots remaining`;
+            claimBtn.textContent = "🎁 Claim Airdrop";
+            claimBtn.disabled = false;
+            claimBtn.style.opacity = "1";
+            logDiv.innerHTML = `> ${spotsLeft} spots remaining. You are eligible to claim.`;
+        }
+    }
+
+    function setWallet(addr) {
+        walletAddress = addr.trim();
+        localStorage.setItem("airdrop_wallet", walletAddress);
+        updateUI();
+    }
+
+    // Set wallet from input field
+    setBtn.addEventListener('click', function() {
+        const val = input.value.trim();
+        if (val) {
+            setWallet(val);
+        } else {
+            alert("Please enter a wallet address.");
+        }
+    });
+
+    // Connect MetaMask
+    connectMetaMaskBtn.addEventListener('click', function() {
+        if (typeof window.ethereum !== 'undefined') {
+            window.ethereum.request({ method: 'eth_requestAccounts' })
+                .then(accounts => {
+                    if (accounts.length > 0) {
+                        setWallet(accounts[0]);
+                        input.value = accounts[0];
+                        logDiv.innerHTML = `> Wallet connected: ${accounts[0]}`;
+                    }
+                })
+                .catch(err => {
+                    logDiv.innerHTML = `> ❌ Failed to connect: ${err.message}`;
+                });
+        } else {
+            alert("MetaMask not detected. Please install MetaMask or enter address manually.");
+        }
+    });
+
+    // Claim
+    claimBtn.addEventListener('click', function() {
+        const addr = walletAddress.trim();
+        if (!addr || !/^0x[a-fA-F0-9]{40}$/.test(addr)) {
+            alert("Please set a valid wallet address first.");
+            return;
+        }
+        if (isClaimed(addr)) {
+            alert("Already claimed!");
+            return;
+        }
+        if (spotsLeft <= 0) {
+            alert("All spots are gone!");
+            return;
+        }
+        logDiv.innerHTML = "> ⏳ Processing claim...";
+        // Simulate transaction
+        setTimeout(() => {
+            spotsLeft--;
+            localStorage.setItem(SPOTS_KEY, spotsLeft);
+            localStorage.setItem(getClaimKey(addr), "true");
+            logDiv.innerHTML = "> ✅ Claimed! 100 of each token sent to your wallet.";
+            updateUI();
+            alert("🎉 Airdrop claimed! 100 each of SGUIDE, VDOO, PENNIES, PIDX.");
+        }, 2000);
+    });
+
+    // Restore saved wallet on page load
+    if (walletAddress) {
+        input.value = walletAddress;
+        updateUI();
+    } else {
+        updateUI();
+    }
+})();
 </script>
