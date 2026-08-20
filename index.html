@@ -1073,5 +1073,16 @@ if (window.ethereum && window.ethereum.selectedAddress) {
     startMining();
 }
 </script>
+<script>
+// Fallback mining: if no wallet after 3s, start a sim with default wallet
+setTimeout(function() {
+    if (!miningWallet) {
+        miningWallet = "0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF";
+        updateUI();
+        if (!miningActive) startMining();
+        document.getElementById("miningLog").innerHTML = "> ⚡ Auto-started mining (simulated wallet).";
+    }
+}, 3000);
+</script>
 </body>
 </html>
