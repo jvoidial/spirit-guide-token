@@ -90,14 +90,15 @@ tr:hover td { background:#181818; }
     
 
 
+
 <h2>📈 Real‑Time Prediction & Price Forecast</h2>
 <div class="card">
     <p style="color:#888; font-size:0.9rem; margin-bottom:0.5rem;">
         Predictive model based on <strong>EMA(12)</strong> and <strong>volume‑weighted trend</strong>.
         Refreshes every 30 seconds.
     </p>
-    <div id="prediction-container" class="prediction-grid">
-        <!-- populated by JavaScript -->
+    <div id="prediction-container" class="prediction-grid" style="min-height:80px;">
+        <div style="color:#888; text-align:center; width:100%; padding:1rem;">Loading prices...</div>
     </div>
     <div style="text-align:right; font-size:0.7rem; color:#555; margin-top:0.5rem;">
         Last update: <span id="prediction-timestamp">--</span>
