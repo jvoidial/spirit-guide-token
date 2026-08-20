@@ -356,44 +356,45 @@ tr:hover td { background:#181818; }
     
     
     <!-- Voxel Resonance Mining – Real + Sim -->
-    <h2>⛏️ Voxel Resonance Mining</h2>
-    <div class="card" style="border-color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF446;">
-        <div style="display:flex; flex-wrap:wrap; gap:0.5rem; justify-content:space-between; align-items:center; margin-bottom:1rem;">
-            <div>
-                <button id="connectBtn" class="btn" style="background:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF2a2a2a; border:1px solid https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF4a4;">🔗 Connect Wallet</button>
+<h2>⛏️ Voxel Resonance Mining</h2>
+<div class="card" style="border-color:#446;">
+    <div style="display:flex; flex-wrap:wrap; gap:0.5rem; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+        <div>
+            <button id="connectWalletMining" class="btn" style="background:#2a2a2a; border:1px solid #4a4;">🔗 Connect Wallet</button>
+            <span id="miningWalletStatus" style="color:#888; font-size:0.8rem; margin-left:0.5rem;">Not connected</span>
+        </div>
+        <div>
             <button id="connectMinerBtn" class="btn" style="background:#2a2a2a; border:1px solid #aaf;">⛏️ Connect Miner</button>
             <span id="minerCount" style="color:#888; font-size:0.8rem; margin-left:0.5rem;">Miners: 0</span>
-                <span id="walletStatus" style="color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF888; font-size:0.8rem; margin-left:0.5rem;">Not connected</span>
-            </div>
-            <div style="color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF555; font-size:0.7rem;">Network: <span id="networkDisplay">Base</span></div>
         </div>
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(120px,1fr)); gap:1rem; text-align:center;">
-            <div>
-                <div style="color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF888; font-size:0.7rem;">STAKED</div>
-                <div id="stakedBalance" style="color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF8f8; font-size:1.4rem; font-weight:700;">0.00 SGUIDE</div>
-            </div>
-            <div>
-                <div style="color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF888; font-size:0.7rem;">PENDING REWARDS</div>
-                <div id="pendingRewards" style="color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddFffa; font-size:1.4rem; font-weight:700;">0.00 SGUIDE</div>
-            </div>
-            <div>
-                <div style="color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF888; font-size:0.7rem;">HASH RATE (sim)</div>
-                <div id="hashrate" style="color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddFaaf; font-size:1.4rem; font-weight:700;">0.00 H/s</div>
-            </div>
+        <div style="color:#555; font-size:0.7rem;">Network: <span id="networkDisplayMining">Base</span></div>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(120px,1fr)); gap:1rem; text-align:center;">
+        <div>
+            <div style="color:#888; font-size:0.7rem;">STAKED</div>
+            <div id="stakedBalance" style="color:#8f8; font-size:1.4rem; font-weight:700;">0.00 SGUIDE</div>
         </div>
-        <div style="margin-top:1rem; display:flex; gap:0.5rem; flex-wrap:wrap; justify-content:center;">
-            <button id="stakeBtn" class="btn" style="background:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF2a2a2a; border:1px solid https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF4a4;">📥 Stake</button>
-            <button id="mineBtn" class="btn" style="background:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF2a2a2a; border:1px solid https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddFffa;">⛏️ Mine (Compound)</button>
-            <button id="claimBtn" class="btn btn-outline">💰 Claim Rewards</button>
+        <div>
+            <div style="color:#888; font-size:0.7rem;">PENDING REWARDS</div>
+            <div id="pendingRewards" style="color:#ffa; font-size:1.4rem; font-weight:700;">0.00 SGUIDE</div>
         </div>
-        <div id="miningLog" style="margin-top:0.8rem; background:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF0a0a0a; border-radius:8px; padding:0.5rem; font-family:monospace; font-size:0.7rem; color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF555; max-height:100px; overflow-y:auto;">
-            > Ready...
-        </div>
-        <div style="margin-top:0.5rem; font-size:0.6rem; color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF444; text-align:right;">
-            Contract: <span id="contractAddress">0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF</span> · <a href="https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF" target="_blank" id="contractLink">🔍 View on BaseScan</a>
+        <div>
+            <div style="color:#888; font-size:0.7rem;">HASH RATE</div>
+            <div id="hashrate" style="color:#aaf; font-size:1.4rem; font-weight:700;">0.00 H/s</div>
         </div>
     </div>
-<!-- Airdrop -->
+    <div style="margin-top:1rem; display:flex; gap:0.5rem; flex-wrap:wrap; justify-content:center;">
+        <button id="stakeBtn" class="btn" style="background:#2a2a2a; border:1px solid #4a4;">📥 Stake</button>
+        <button id="mineBtn" class="btn" style="background:#2a2a2a; border:1px solid #ffa;">⛏️ Mine (Start/Stop)</button>
+        <button id="claimBtn" class="btn btn-outline">💰 Claim Rewards</button>
+    </div>
+    <div id="miningLog" style="margin-top:0.8rem; background:#0a0a0a; border-radius:8px; padding:0.5rem; font-family:monospace; font-size:0.7rem; color:#555; max-height:100px; overflow-y:auto;">
+        > Ready...
+    </div>
+    <div style="margin-top:0.5rem; font-size:0.6rem; color:#444; text-align:right;">
+        Contract: <span id="contractAddress">0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF</span>
+    </div>
+</div>
 <h2>🎁 Airdrop Claim – 1,000 Spots Only</h2>
 <div class="card">
     <div style="display:flex; flex-wrap:wrap; gap:1.5rem; align-items:center; justify-content:space-between;">
@@ -948,6 +949,129 @@ function claimAirdrop(){
 function setAirdropWallet(a){ walletAddress = a; document.getElementById("airdropWallet").textContent = a; updateUI(); }
 window.setAirdropWallet = setAirdropWallet;
 document.addEventListener("DOMContentLoaded", function(){ updateUI(); document.getElementById("claimAirdropBtn").addEventListener("click", claimAirdrop); });
+</script>
+<script>
+// Wallet-integrated mining
+let miningWallet = null;
+let miningActive = false;
+let miningInterval = null;
+const MINING_DATA_KEY = "mining_data";
+
+function getMiningData() {
+    return JSON.parse(localStorage.getItem(MINING_DATA_KEY) || "{}");
+}
+function saveMiningData(data) {
+    localStorage.setItem(MINING_DATA_KEY, JSON.stringify(data));
+}
+function getWalletData(wallet) {
+    const all = getMiningData();
+    if (!all[wallet]) {
+        all[wallet] = { miners: [], pendingRewards: 0, blocksMined: 0 };
+        saveMiningData(all);
+    }
+    return all[wallet];
+}
+function updateUI() {
+    if (!miningWallet) {
+        document.getElementById("miningWalletStatus").textContent = "Not connected";
+        document.getElementById("stakedBalance").textContent = "0.00 SGUIDE";
+        document.getElementById("pendingRewards").textContent = "0.00 SGUIDE";
+        document.getElementById("hashrate").textContent = "0.00 H/s";
+        document.getElementById("minerCount").textContent = "Miners: 0";
+        return;
+    }
+    const wallet = miningWallet;
+    const data = getWalletData(wallet);
+    document.getElementById("miningWalletStatus").textContent = wallet.slice(0,6)+"..."+wallet.slice(-4);
+    document.getElementById("stakedBalance").textContent = "0.00 SGUIDE"; // placeholder
+    document.getElementById("pendingRewards").textContent = data.pendingRewards.toFixed(3) + " SGUIDE";
+    document.getElementById("hashrate").textContent = (data.miners.length * 0.5 + 0.5).toFixed(2) + " H/s";
+    document.getElementById("minerCount").textContent = "Miners: " + data.miners.length;
+}
+function connectWalletMining() {
+    if (typeof window.ethereum !== "undefined") {
+        ethereum.request({ method: "eth_requestAccounts" }).then(accounts => {
+            miningWallet = accounts[0];
+            updateUI();
+            document.getElementById("miningLog").innerHTML = "> Wallet connected: " + miningWallet;
+            // Start mining if not already
+            if (!miningActive) startMining();
+        }).catch(err => {
+            document.getElementById("miningLog").innerHTML = "> ❌ Connection failed: " + err.message;
+        });
+    } else {
+        // Fallback: simulate wallet
+        const fake = prompt("Enter wallet address (or use default):") || "0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF";
+        miningWallet = fake;
+        updateUI();
+        document.getElementById("miningLog").innerHTML = "> Simulated wallet: " + miningWallet;
+        if (!miningActive) startMining();
+    }
+}
+function connectMiner() {
+    if (!miningWallet) { alert("Connect wallet first."); return; }
+    const name = prompt("Enter miner name/ID:");
+    if (!name) return;
+    const data = getWalletData(miningWallet);
+    data.miners.push({ id: name, connected: Date.now() });
+    saveMiningData(data);
+    updateUI();
+    document.getElementById("miningLog").innerHTML = "> ⛏️ Miner " + name + " connected! Hash rate increased.";
+}
+function startMining() {
+    if (miningActive) return;
+    miningActive = true;
+    document.getElementById("mineBtn").textContent = "⏹️ Stop Mining";
+    document.getElementById("mineBtn").style.borderColor = "#f88";
+    miningInterval = setInterval(() => {
+        if (!miningWallet) return;
+        const data = getWalletData(miningWallet);
+        // Simulate mining: random block every ~2-5 seconds
+        if (Math.random() < 0.1) {
+            data.blocksMined++;
+            const reward = 0.5 + Math.random() * 1.5;
+            data.pendingRewards += reward;
+            saveMiningData(data);
+            document.getElementById("miningLog").innerHTML = "> ⛏️ Block #" + data.blocksMined + " mined! +" + reward.toFixed(3) + " SGUIDE<br>" + document.getElementById("miningLog").innerHTML;
+            if (document.getElementById("miningLog").children.length > 20) {
+                document.getElementById("miningLog").removeChild(document.getElementById("miningLog").lastChild);
+            }
+            updateUI();
+        }
+    }, 2000);
+}
+function stopMining() {
+    if (!miningActive) return;
+    miningActive = false;
+    clearInterval(miningInterval);
+    document.getElementById("mineBtn").textContent = "⛏️ Mine (Start/Stop)";
+    document.getElementById("mineBtn").style.borderColor = "#ffa";
+    document.getElementById("miningLog").innerHTML = "> Mining stopped.";
+}
+function claimRewards() {
+    if (!miningWallet) { alert("Connect wallet first."); return; }
+    const data = getWalletData(miningWallet);
+    if (data.pendingRewards <= 0) { alert("No rewards to claim."); return; }
+    const amount = data.pendingRewards;
+    data.pendingRewards = 0;
+    saveMiningData(data);
+    document.getElementById("miningLog").innerHTML = "> 💰 Claimed " + amount.toFixed(3) + " SGUIDE! (simulated)";
+    updateUI();
+    alert("💰 Claimed " + amount.toFixed(3) + " SGUIDE!");
+}
+// Event listeners
+document.getElementById("connectWalletMining").addEventListener("click", connectWalletMining);
+document.getElementById("connectMinerBtn").addEventListener("click", connectMiner);
+document.getElementById("mineBtn").addEventListener("click", function() {
+    if (miningActive) stopMining(); else startMining();
+});
+document.getElementById("claimBtn").addEventListener("click", claimRewards);
+// Auto-start if wallet already connected (for page reload)
+if (window.ethereum && window.ethereum.selectedAddress) {
+    miningWallet = window.ethereum.selectedAddress;
+    updateUI();
+    startMining();
+}
 </script>
 </body>
 </html>
