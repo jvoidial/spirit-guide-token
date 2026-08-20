@@ -154,3 +154,6 @@ When you send input like:
 
 ```text
 "hello brain"
+## 🌐 Permanent IPFS Link
+Your dashboard is also available permanently on IPFS:
+[https://cloudflare-ipfs.com/ipfs/QmPYCgFQuYgHBuCkiQhWa2tiBzQb4g2TjAr8njavEuhWU8](https://cloudflare-ipfs.com/ipfs/QmPYCgFQuYgHBuCkiQhWa2tiBzQb4g2TjAr8njavEuhWU8)
