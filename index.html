@@ -423,3 +423,123 @@ tr:hover td { background:#181818; }
         > Enter your wallet address or connect MetaMask.
     </div>
 </div>
+
+## 📡 Live Stream
+
+Enter a stream URL below and click **Save**, then **Start Stream**.
+
+<input id="streamUrlInput" type="text" placeholder="Enter stream URL (HLS .m3u8, RTMP, or embed URL)" style="width:80%; padding:8px; background:#1a1a1a; color:#eee; border:1px solid #333; border-radius:8px;">
+<button id="saveStreamBtn" style="background:#2a2a2a; color:#fff; border:1px solid #4a4; padding:8px 16px; border-radius:8px;">Save</button>
+<button id="toggleStreamBtn" style="background:#2a2a2a; color:#fff; border:1px solid #ffa; padding:8px 16px; border-radius:8px;">▶️ Start Stream</button>
+
+<div id="streamPlayer" style="width:100%; background:#000; border-radius:12px; overflow:hidden; min-height:200px; display:flex; align-items:center; justify-content:center; color:#555; margin-top:10px;">
+    <span>Enter a stream URL and click Save, then Start.</span>
+</div>
+
+**Supported:** HLS (.m3u8), RTMP (via service), YouTube/Twitch embed links.
+
+<script>
+// Live Stream Controller
+(function() {
+    const input = document.getElementById('streamUrlInput');
+    const saveBtn = document.getElementById('saveStreamBtn');
+    const toggleBtn = document.getElementById('toggleStreamBtn');
+    const playerContainer = document.getElementById('streamPlayer');
+    let streamUrl = localStorage.getItem('streamUrl') || '';
+    let isPlaying = false;
+
+    if (streamUrl) {
+        input.value = streamUrl;
+        loadStream(streamUrl, false);
+    }
+
+    function loadStream(url, autoplay) {
+        playerContainer.innerHTML = '';
+        if (url.includes('youtube.com') || url.includes('twitch.tv') || url.includes('embed')) {
+            const iframe = document.createElement('iframe');
+            iframe.src = url;
+            iframe.style.width = '100%';
+            iframe.style.height = '400px';
+            iframe.style.border = 'none';
+            iframe.allow = 'autoplay; encrypted-media';
+            iframe.allowFullscreen = true;
+            playerContainer.appendChild(iframe);
+            isPlaying = true;
+            toggleBtn.textContent = '⏹️ Stop Stream';
+            return;
+        }
+        if (url.endsWith('.m3u8') || url.includes('.m3u8')) {
+            if (typeof Hls === 'undefined') {
+                const script = document.createElement('script');
+                script.src = 'https://cdn.jsdelivr.net/npm/hls.js@latest';
+                script.onload = () => initHls(url, autoplay);
+                document.head.appendChild(script);
+            } else {
+                initHls(url, autoplay);
+            }
+            return;
+        }
+        const video = document.createElement('video');
+        video.controls = true;
+        video.style.width = '100%';
+        video.style.maxHeight = '400px';
+        video.style.background = '#000';
+        const source = document.createElement('source');
+        source.src = url;
+        video.appendChild(source);
+        playerContainer.appendChild(video);
+        if (autoplay) video.play().catch(()=>{});
+        isPlaying = true;
+        toggleBtn.textContent = '⏹️ Stop Stream';
+    }
+
+    function initHls(url, autoplay) {
+        const video = document.createElement('video');
+        video.controls = true;
+        video.style.width = '100%';
+        video.style.maxHeight = '400px';
+        video.style.background = '#000';
+        playerContainer.appendChild(video);
+        const hls = new Hls();
+        hls.loadSource(url);
+        hls.attachMedia(video);
+        if (autoplay) video.play().catch(()=>{});
+        isPlaying = true;
+        toggleBtn.textContent = '⏹️ Stop Stream';
+        window.hlsPlayer = hls;
+    }
+
+    saveBtn.addEventListener('click', function() {
+        const url = input.value.trim();
+        if (url) {
+            localStorage.setItem('streamUrl', url);
+            streamUrl = url;
+            loadStream(url, false);
+            toggleBtn.textContent = '▶️ Start Stream';
+            isPlaying = false;
+        }
+    });
+
+    toggleBtn.addEventListener('click', function() {
+        if (!streamUrl) {
+            alert('Please enter a stream URL and click Save first.');
+            return;
+        }
+        if (isPlaying) {
+            playerContainer.innerHTML = '<span style="color:#888;">Stream stopped.</span>';
+            isPlaying = false;
+            toggleBtn.textContent = '▶️ Start Stream';
+            if (window.hlsPlayer) {
+                window.hlsPlayer.destroy();
+                window.hlsPlayer = null;
+            }
+        } else {
+            loadStream(streamUrl, true);
+        }
+    });
+
+    input.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') saveBtn.click();
+    });
+})();
+</script>
