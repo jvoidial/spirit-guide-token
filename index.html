@@ -1,181 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>🧬 SPIRIT GUIDE∞ & VOUDOO∞ – Voxel Resonance</title>
-    <style>
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body {
-            background: https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF000;
-            color: https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddFeee;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            line-height: 1.6;
-            padding: 2rem 1rem;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .container { max-width:1200px; width:100%; }
-        h1 { font-size:2.8rem; font-weight:700; color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddFfff; margin-bottom:0.25rem; letter-spacing:-0.02em; }
-        h2 { font-size:1.8rem; color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddFccc; margin:2.5rem 0 1.2rem 0; border-bottom:2px solid https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF333; padding-bottom:0.5rem; }
-        h3 { font-size:1.2rem; color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddFddd; margin-bottom:0.4rem; }
-        a { color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddFaaa; text-decoration:none; border-bottom:1px dotted https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF555; transition:color 0.2s, border-color 0.2s; }
-        a:hover { color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddFfff; border-bottom-color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddFfff; }
-        .highlight { color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddFfff; font-weight:600; }
-        .card {
-            background: https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF111;
-            border: 1px solid https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF2a2a2a;
-            border-radius: 16px;
-            padding: 1.5rem 1.8rem;
-            margin-bottom: 1.5rem;
-            transition: border-color 0.25s;
-        }
-        .card:hover { border-color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF555; }
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 1.25rem;
-        }
-        .token-badge {
-            display: inline-block;
-            background: https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF1e1e1e;
-            padding: 0.15rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            color: https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddFccc;
-            border: 1px solid https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF333;
-            letter-spacing: 0.3px;
-            margin: 0.2rem 0.2rem 0 0;
-        }
-        .token-badge.success { color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF8f8; border-color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF282; }
-        .token-badge.warn { color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddFffa; border-color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF554; }
-        .token-badge.resonance { color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddFaaf; border-color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF446; }
-        .code-addr { font-family:monospace; font-size:0.85rem; color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddFccc; word-break:break-all; }
-        .supply-number { font-size:1.1rem; font-weight:600; color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddFfff; }
-        .fpi-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin: 1rem 0;
-        }
-        .fpi-item {
-            background: https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF1a1a1a;
-            padding: 0.8rem;
-            border-radius: 8px;
-            border-left: 3px solid https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF666;
-        }
-        .fpi-item .label { color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF888; font-size:0.7rem; text-transform:uppercase; }
-        .fpi-item .value { color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddFfff; font-size:0.9rem; }
-        .freq-badge {
-            display: inline-block;
-            background: https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF1a1a1a;
-            padding: 0.1rem 0.6rem;
-            border-radius: 12px;
-            font-size: 0.65rem;
-            color: https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddFaaf;
-            border: 1px solid https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF446;
-            margin-left: 0.5rem;
-        }
-        .secure-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 0.8rem;
-            margin: 0.5rem 0 1rem 0;
-        }
-        .secure-item {
-            background: https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF1a1a1a;
-            padding: 0.6rem 0.8rem;
-            border-radius: 8px;
-            border-left: 3px solid https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF4a4;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .secure-item .icon { font-size:1.2rem; }
-        .secure-item .desc { color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddFccc; font-size:0.85rem; }
-        .resonance-quote { font-style:italic; color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddFaaa; border-left:3px solid https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF444; padding-left:1rem; margin:1rem 0; }
-        .footer {
-            margin-top: 3rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF1e1e1e;
-            text-align: center;
-            color: https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF555;
-            font-size: 0.85rem;
-        }
-        .btn {
-            display: inline-block;
-            background: https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF333;
-            color: https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddFfff;
-            padding: 0.4rem 1.2rem;
-            border-radius: 30px;
-            font-weight: 600;
-            font-size: 0.85rem;
-            border: none;
-            cursor: pointer;
-            transition: background 0.25s, transform 0.1s;
-            text-decoration: none;
-        }
-        .btn:hover { background:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF555; transform:scale(1.02); text-decoration:none; border-bottom:none; }
-        .btn-outline { background:transparent; border:1.5px solid https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF555; color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddFccc; }
-        .btn-outline:hover { background:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF222; color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddFfff; border-color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF888; }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.9rem;
-        }
-        th, td {
-            padding: 0.6rem 0.8rem;
-            text-align: left;
-            border-bottom: 1px solid https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF222;
-        }
-        th { color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddFccc; font-weight:600; letter-spacing:0.3px; }
-        tr:hover td { background:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF181818; }
-        @media (max-width:640px) {
-            h1 { font-size:2rem; }
-            h2 { font-size:1.3rem; }
-            .card { padding:1.2rem; }
-            .card-grid { grid-template-columns: 1fr; }
-        }
-        /* Live prediction dashboard */
-        .prediction-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1rem;
-            margin: 1rem 0;
-        }
-        .pred-item {
-            background: https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF1a1a1a;
-            padding: 0.8rem;
-            border-radius: 8px;
-            text-align: center;
-            border: 1px solid https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF333;
-        }
-        .pred-item .token { color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddFaaa; font-size:0.7rem; text-transform:uppercase; }
-        .pred-item .price { color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF8f8; font-size:1.2rem; font-weight:600; }
-        .pred-item .change { color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddFffa; font-size:0.8rem; }
-        .pred-item .trend { font-size:0.7rem; color:https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF888; }
-        .live-badge {
-            display: inline-block;
-            background: https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddFff4444;
-            color: https://basescan.org/address/0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddFfff;
-            padding: 0.1rem 0.6rem;
-            border-radius: 12px;
-            font-size: 0.6rem;
-            font-weight:600;
-            margin-left:0.5rem;
-            animation: pulse 1.5s infinite;
-        }
-        @keyframes pulse {
-            0% { opacity:1; }
-            50% { opacity:0.4; }
-            100% { opacity:1; }
-        }
-    </style>
-<script src="https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js"></script></head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>🧬 SPIRIT GUIDE∞ & VOUDOO∞ – Voxel Resonance</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+    background: #000;
+    color: #eee;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    padding: 2rem 1rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.container { max-width:1200px; width:100%; }
+h1 { font-size:2.8rem; font-weight:700; color:#fff; margin-bottom:0.25rem; letter-spacing:-0.02em; }
+h2 { font-size:1.8rem; color:#ccc; margin:2.5rem 0 1.2rem 0; border-bottom:2px solid #333; padding-bottom:0.5rem; }
+h3 { font-size:1.2rem; color:#ddd; margin-bottom:0.4rem; }
+a { color:#aaa; text-decoration:none; border-bottom:1px dotted #555; transition:color 0.2s, border-color 0.2s; }
+a:hover { color:#fff; border-bottom-color:#fff; }
+.highlight { color:#fff; font-weight:600; }
+.card {
+    background: #111;
+    border: 1px solid #2a2a2a;
+    border-radius: 16px;
+    padding: 1.5rem 1.8rem;
+    margin-bottom: 1.5rem;
+    transition: border-color 0.25s;
+}
+.card:hover { border-color:#555; }
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.25rem;
+}
+.token-badge {
+    display: inline-block;
+    background: #1e1e1e;
+    padding: 0.15rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #ccc;
+    border: 1px solid #333;
+    letter-spacing: 0.3px;
+    margin: 0.2rem 0.2rem 0 0;
+}
+.token-badge.success { color:#8f8; border-color:#282; }
+.token-badge.warn { color:#ffa; border-color:#554; }
+.token-badge.resonance { color:#aaf; border-color:#446; }
+.code-addr { font-family:monospace; font-size:0.85rem; color:#ccc; word-break:break-all; }
+.supply-number { font-size:1.1rem; font-weight:600; color:#fff; }
+.fpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1rem 0;
+}
+.fpi-item {
+    background: #1a1a1a;
+    padding: 0.8rem;
+    border-radius: 8px;
+    border-left: 3px solid #666;
+}
+.fpi-item .label { color:#888; font-size:0.7rem; text-transform:uppercase; }
+.fpi-item .value { color:#fff; font-size:0.9rem; }
+.freq-badge {
+    display: inline-block;
+    background: #1a1a1a;
+    padding: 0.1rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.65rem;
+    color: #aaf;
+    border: 1px solid #446;
+    margin-left: 0.5rem;
+}
+.secure-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.8rem;
+    margin: 0.5rem 0 1rem 0;
+}
+.secure-item {
+    background: #1a1a1a;
+    padding: 0.6rem 0.8rem;
+    border-radius: 8px;
+    border-left: 3px solid #4a4;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.secure-item .icon { font-size:1.2rem; }
+.secure-item .desc { color:#ccc; font-size:0.85rem; }
+.resonance-quote { font-style:italic; color:#aaa; border-left:3px solid #444; padding-left:1rem; margin:1rem 0; }
+.footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #1e1e1e;
+    text-align: center;
+    color: #555;
+    font-size: 0.85rem;
+}
+.btn {
+    display: inline-block;
+    background: #333;
+    color: #fff;
+    padding: 0.4rem 1.2rem;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    border: none;
+    cursor: pointer;
+    transition: background 0.25s, transform 0.1s;
+    text-decoration: none;
+}
+.btn:hover { background:#555; transform:scale(1.02); text-decoration:none; border-bottom:none; }
+.btn-outline { background:transparent; border:1.5px solid #555; color:#ccc; }
+.btn-outline:hover { background:#222; color:#fff; border-color:#888; }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+th, td {
+    padding: 0.6rem 0.8rem;
+    text-align: left;
+    border-bottom: 1px solid #222;
+}
+th { color:#ccc; font-weight:600; letter-spacing:0.3px; }
+tr:hover td { background:#181818; }
+@media (max-width:640px) {
+    h1 { font-size:2rem; }
+    h2 { font-size:1.3rem; }
+    .card { padding:1.2rem; }
+    .card-grid { grid-template-columns: 1fr; }
+}
+.live-badge {
+    display: inline-block;
+    background: #ff4444;
+    color: #fff;
+    padding: 0.1rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.6rem;
+    font-weight:600;
+    margin-left:0.5rem;
+    animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+    0% { opacity:1; }
+    50% { opacity:0.4; }
+    100% { opacity:1; }
+}
+.prediction-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin: 1rem 0;
+}
+.pred-item {
+    background: #1a1a1a;
+    padding: 0.8rem;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid #333;
+}
+.pred-item .token { color:#aaa; font-size:0.7rem; text-transform:uppercase; }
+.pred-item .price { color:#8f8; font-size:1.2rem; font-weight:600; }
+.pred-item .change { color:#ffa; font-size:0.8rem; }
+.pred-item .trend { font-size:0.7rem; color:#888; }
+</style>
+</head>
 <body>
+<div class="container">
 <div class="container">
 
     <header style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-bottom:1.5rem;">
