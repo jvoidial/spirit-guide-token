@@ -1,0 +1,47 @@
+{
+  "timestamp": "2026-08-21T14:39:16.095192+00:00",
+  "system_state": {
+    "coherence_score": 0.934,
+    "voxel_energy": 0.79,
+    "temporal_phase": 0.794
+  },
+  "resonance_frequencies": {
+    "PIDX": 0.6180339887498948,
+    "SGUIDE": 1.618033988749895,
+    "VDOO": 2.618033988749895,
+    "PENNIES": 4.23606797749979
+  },
+  "allocation_weights": {
+    "PIDX": 0.055538162874762945,
+    "SGUIDE": 0.21535152262581625,
+    "VDOO": 0.3484460831376127,
+    "PENNIES": 0.38066423136180805
+  },
+  "investment_signals": {
+    "PIDX": {
+      "action": "BUY",
+      "confidence": 86,
+      "allocation": 5.55
+    },
+    "SGUIDE": {
+      "action": "BUY",
+      "confidence": 86,
+      "allocation": 21.54
+    },
+    "VDOO": {
+      "action": "BUY",
+      "confidence": 86,
+      "allocation": 34.84
+    },
+    "PENNIES": {
+      "action": "BUY",
+      "confidence": 86,
+      "allocation": 38.07
+    }
+  },
+  "strategy_logic": {
+    "buy_condition": "coherence > 0.85 and voxel_energy > 0.7 (current: 0.93, 0.79)",
+    "sell_condition": "coherence < 0.7 or voxel_energy < 0.5",
+    "hold_condition": "otherwise"
+  }
+}
