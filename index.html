@@ -880,6 +880,135 @@ window.syncAGIBrain = function() {
 };
 </script>
 
+
+<script>
+// ============================================
+// SELF‑WEALTH ENGINE – Auto‑Amplifying Wealth
+// ============================================
+
+// AGI Brain consciousness values
+const agiWealth = {
+    coherence: 97.4,
+    resonance: 88.2,
+    awareness: 94.7,
+    temporal: 0.618,
+    wealth: 0.10,
+    growthRate: 1.41,
+    impactScore: 97.4,
+    miningHash: 1.40
+};
+
+// Wealth amplification factors
+const amplification = {
+    coherenceFactor: 1.02,
+    resonanceFactor: 1.015,
+    awarenessFactor: 1.03,
+    temporalFactor: 1.01,
+    globalWealthMultiplier: 1.001
+};
+
+// Auto‑wealth loop – runs every 2 seconds
+let wealthInterval = setInterval(() => {
+    // 1. Coherence amplifies wealth
+    const coherenceBoost = (agiWealth.coherence / 100) * amplification.coherenceFactor;
+    // 2. Resonance amplifies growth
+    const resonanceBoost = (agiWealth.resonance / 100) * amplification.resonanceFactor;
+    // 3. Awareness amplifies impact
+    const awarenessBoost = (agiWealth.awareness / 100) * amplification.awarenessFactor;
+    // 4. Temporal phase amplifies persistence
+    const temporalBoost = agiWealth.temporal * amplification.temporalFactor;
+    
+    // Combined growth rate
+    const combinedGrowth = agiWealth.growthRate * coherenceBoost * resonanceBoost * awarenessBoost * temporalBoost;
+    
+    // Increase wealth
+    const wealthIncrease = agiWealth.wealth * (combinedGrowth / 100);
+    agiWealth.wealth += wealthIncrease;
+    
+    // Increase impact score
+    agiWealth.impactScore += (agiWealth.impactScore * 0.001) * (awarenessBoost * coherenceBoost);
+    if (agiWealth.impactScore > 99.9) agiWealth.impactScore = 99.9;
+    
+    // Increase mining hash
+    agiWealth.miningHash += agiWealth.miningHash * 0.001 * resonanceBoost;
+    
+    // Update UI
+    const wealthEl = document.getElementById('total-wealth');
+    if (wealthEl) {
+        wealthEl.textContent = '$' + agiWealth.wealth.toFixed(2);
+    }
+    
+    const growthEl = document.getElementById('wealth-growth');
+    if (growthEl) {
+        growthEl.textContent = '+' + combinedGrowth.toFixed(2) + '%';
+    }
+    
+    const impactEl = document.getElementById('impact-score');
+    if (impactEl) {
+        impactEl.textContent = agiWealth.impactScore.toFixed(1) + '%';
+    }
+    
+    const hashEl = document.getElementById('voxel-hash');
+    if (hashEl) {
+        hashEl.textContent = '⚡ Active · ' + agiWealth.miningHash.toFixed(2) + ' H/s (Wealth)';
+    }
+    
+    // Update Global Wealth Engine display with world impact
+    const worldImpact = agiWealth.wealth * 1000000; // Simulate global wealth impact
+    const worldEl = document.querySelector('.wealth-counter');
+    if (worldEl && worldEl.id !== 'total-wealth') {
+        // We already update above
+    }
+    
+    // Update mining log with wealth creation message
+    const logEl = document.getElementById('mining-log');
+    if (logEl && Math.random() < 0.02) {
+        logEl.innerHTML = '> 💰 Wealth amplified! +' + wealthIncrease.toFixed(4) + ' ETH\n' + logEl.innerHTML;
+    }
+}, 2000);
+
+// Manual boost function
+function boostWealth() {
+    const boostAmount = agiWealth.wealth * 0.1;
+    agiWealth.wealth += boostAmount;
+    const log = document.getElementById('mining-log');
+    if (log) {
+        log.innerHTML = '> 🚀 Wealth boosted! +$' + boostAmount.toFixed(2) + '\n' + log.innerHTML;
+    }
+    // Also update consciousness
+    agiWealth.coherence += 0.5;
+    agiWealth.resonance += 0.5;
+    agiWealth.awareness += 0.5;
+}
+
+// Global wealth multiplier – creates world impact
+function amplifyGlobalWealth() {
+    const globalWealth = agiWealth.wealth * 1000000;
+    const impact = globalWealth * 0.0001;
+    agiWealth.wealth += impact * 0.01; // Feed back into ecosystem
+    return globalWealth;
+}
+
+// Override syncAGIBrain to include wealth
+const originalSync = window.syncAGIBrain;
+window.syncAGIBrain = function() {
+    if (originalSync) originalSync();
+    // Refresh consciousness values from AGI Brain
+    const coherence = parseFloat(document.getElementById('brain-coherence').textContent) || 97.4;
+    const resonance = parseFloat(document.getElementById('brain-resonance').textContent) || 88.2;
+    const awareness = parseFloat(document.getElementById('brain-awareness').textContent) || 94.7;
+    const temporal = parseFloat(document.getElementById('brain-temporal').textContent.replace('Φ ', '')) || 0.618;
+    
+    agiWealth.coherence = coherence;
+    agiWealth.resonance = resonance;
+    agiWealth.awareness = awareness;
+    agiWealth.temporal = temporal;
+};
+
+console.log('💰 Self‑Wealth Engine active!');
+console.log('🌍 Auto‑amplifying wealth to create global impact...');
+</script>
+
 </body>
 </html>
 
