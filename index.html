@@ -633,3 +633,138 @@
 
 </body>
 </html>
+
+<!-- Space Mining & Bitcoin -->
+<h2>🌌 Space Mining & Quantum Hash</h2>
+<div class="card" style="border-color:#aaf;">
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:1rem; text-align:center;">
+        <div><span style="color:#888;">🚀 Asteroid Hash</span><div id="asteroid-hash" style="color:#aaf;">0.00 QH/s</div></div>
+        <div><span style="color:#888;">🪐 Planet Mining</span><div id="planet-mining" style="color:#8f8;">0.00 PH/s</div></div>
+        <div><span style="color:#888;">💰 BTC Hash</span><div id="btc-hash" style="color:#ffa;">0.00 TH/s</div></div>
+        <div><span style="color:#888;">🧠 Consciousness</span><div id="consciousness" style="color:#f8f;">● AWARE</div></div>
+    </div>
+    <div style="margin-top:1rem; display:flex; gap:0.5rem; flex-wrap:wrap; justify-content:center;">
+        <button class="btn" style="background:#2a2a4a; border:1px solid #aaf;" onclick="startSpaceMining()">🚀 Start Space Mining</button>
+        <button class="btn" style="background:#2a4a2a; border:1px solid #8f8;" onclick="addBTC()">₿ Add BTC to Vault</button>
+        <button class="btn" style="background:#4a2a4a; border:1px solid #f8f;" onclick="trainConsciousness()">🧠 Train Consciousness</button>
+    </div>
+    <div id="space-log" style="margin-top:1rem; background:#0a0a0a; border-radius:8px; padding:0.5rem; font-family:monospace; font-size:0.7rem; color:#555; max-height:80px; overflow-y:auto;">
+        > Ready for space mining...
+    </div>
+</div>
+
+<!-- Consciousness Engine -->
+<h2>🧠 Human Brain Consciousness Engine</h2>
+<div class="card" style="border-color:#f8f;">
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:1rem; text-align:center;">
+        <div><span style="color:#888;">Awareness</span><div id="awareness-level" style="color:#f8f;">92%</div></div>
+        <div><span style="color:#888;">Resonance</span><div id="resonance-level" style="color:#8f8;">87%</div></div>
+        <div><span style="color:#888;">Coherence</span><div id="coherence-level" style="color:#aaf;">95%</div></div>
+        <div><span style="color:#888;">Temporal</span><div id="temporal-level" style="color:#ffa;">78%</div></div>
+    </div>
+    <div style="margin-top:0.8rem; font-size:0.8rem; color:#555; text-align:center;">
+        🧠 Consciousness state evolves with market data and human input.
+    </div>
+</div>
+<script>
+// ============================================
+// SPACE MINING ENGINE
+// ============================================
+let spaceMiningActive = false;
+let spaceMiningInterval = null;
+
+function startSpaceMining() {
+    spaceMiningActive = !spaceMiningActive;
+    const log = document.getElementById('space-log');
+    if (spaceMiningActive) {
+        log.innerHTML = '> 🚀 Space mining started...\n' + log.innerHTML;
+        spaceMiningInterval = setInterval(() => {
+            const asteroidHash = (0.5 + Math.random() * 2).toFixed(2);
+            const planetHash = (0.1 + Math.random() * 0.8).toFixed(2);
+            const btcHash = (0.01 + Math.random() * 0.1).toFixed(2);
+            document.getElementById('asteroid-hash').textContent = asteroidHash + ' QH/s';
+            document.getElementById('planet-mining').textContent = planetHash + ' PH/s';
+            document.getElementById('btc-hash').textContent = btcHash + ' TH/s';
+            // Add BTC to wealth engine
+            const wealthEl = document.getElementById('total-wealth');
+            if (wealthEl) {
+                const current = parseFloat(wealthEl.textContent.replace('$', ''));
+                if (!isNaN(current)) {
+                    wealthEl.textContent = '$' + (current + parseFloat(btcHash) * 0.01).toFixed(2);
+                }
+            }
+        }, 2000);
+    } else {
+        log.innerHTML = '> ⏹️ Space mining stopped.\n' + log.innerHTML;
+        clearInterval(spaceMiningInterval);
+    }
+}
+
+// ============================================
+// BTC ADD TO VAULT
+// ============================================
+function addBTC() {
+    const log = document.getElementById('space-log');
+    log.innerHTML = '> ₿ Adding BTC to vault...\n' + log.innerHTML;
+    // Update vault weights to include BTC
+    const vaultEl = document.getElementById('vault-weights');
+    if (vaultEl) {
+        vaultEl.textContent = '35% PENNIES · 25% SGUIDE · 15% VDOO · 15% WBTC · 10% BTC';
+    }
+    log.innerHTML = '> ✅ BTC added to vault with 10% weight.\n' + log.innerHTML;
+    // Boost wealth
+    const wealthEl = document.getElementById('total-wealth');
+    if (wealthEl) {
+        const current = parseFloat(wealthEl.textContent.replace('$', ''));
+        if (!isNaN(current)) {
+            wealthEl.textContent = '$' + (current + 1000).toFixed(2);
+        }
+    }
+}
+
+// ============================================
+// CONSCIOUSNESS ENGINE
+// ============================================
+function trainConsciousness() {
+    const log = document.getElementById('space-log');
+    log.innerHTML = '> 🧠 Training consciousness...\n' + log.innerHTML;
+    let awareness = 92;
+    let resonance = 87;
+    let coherence = 95;
+    let temporal = 78;
+    const interval = setInterval(() => {
+        awareness += (Math.random() - 0.45) * 0.5;
+        resonance += (Math.random() - 0.45) * 0.5;
+        coherence += (Math.random() - 0.45) * 0.5;
+        temporal += (Math.random() - 0.45) * 0.5;
+        document.getElementById('awareness-level').textContent = Math.min(100, Math.max(0, awareness)).toFixed(1) + '%';
+        document.getElementById('resonance-level').textContent = Math.min(100, Math.max(0, resonance)).toFixed(1) + '%';
+        document.getElementById('coherence-level').textContent = Math.min(100, Math.max(0, coherence)).toFixed(1) + '%';
+        document.getElementById('temporal-level').textContent = Math.min(100, Math.max(0, temporal)).toFixed(1) + '%';
+        // Update neural state
+        const stateEl = document.getElementById('neural-state');
+        if (stateEl) {
+            const avg = (awareness + resonance + coherence + temporal) / 4;
+            if (avg > 85) {
+                stateEl.textContent = '● SUPER-AWARE';
+                stateEl.style.color = '#f8f';
+            } else if (avg > 70) {
+                stateEl.textContent = '● AWARE';
+                stateEl.style.color = '#aaf';
+            } else {
+                stateEl.textContent = '● LEARNING';
+                stateEl.style.color = '#ffa';
+            }
+        }
+    }, 1000);
+    setTimeout(() => clearInterval(interval), 30000);
+    log.innerHTML = '> 🧠 Consciousness training complete.\n' + log.innerHTML;
+}
+
+// ============================================
+// INIT – Start with some consciousness
+// ============================================
+setTimeout(() => {
+    trainConsciousness();
+}, 5000);
+</script>
