@@ -754,6 +754,132 @@ setInterval(() => {
 }, 30000);
 </script>
 
+
+<script>
+// ============================================
+// NEURAL NETWORK MESH – AGI Brain to Coins
+// ============================================
+
+// AGI Brain values (from JSON)
+const agiConsciousness = {
+    coherence: 97.4,
+    resonance: 88.2,
+    awareness: 94.7,
+    temporal: 0.618,
+    evolution: "ALPHA"
+};
+
+// Coin mapping – each token gets a "consciousness weight"
+const coinConsciousness = {
+    "SGUIDE": {
+        resonance: agiConsciousness.resonance * 0.95,
+        coherence: agiConsciousness.coherence * 0.98,
+        temporal: agiConsciousness.temporal * 1.02
+    },
+    "VDOO": {
+        resonance: agiConsciousness.resonance * 0.88,
+        coherence: agiConsciousness.coherence * 0.92,
+        temporal: agiConsciousness.temporal * 1.05
+    },
+    "PENNIES": {
+        resonance: agiConsciousness.resonance * 0.78,
+        coherence: agiConsciousness.coherence * 0.85,
+        temporal: agiConsciousness.temporal * 1.10
+    },
+    "PIDX": {
+        resonance: agiConsciousness.resonance * 0.92,
+        coherence: agiConsciousness.coherence * 0.95,
+        temporal: agiConsciousness.temporal * 1.00
+    }
+};
+
+// Neural Mesh – updates all connected systems
+function updateNeuralMesh() {
+    console.log("🧠 Neural Mesh activated...");
+    
+    // Update FPI weights based on consciousness
+    const fpiItems = document.querySelectorAll('.fpi-item .value');
+    if (fpiItems.length >= 3) {
+        // Quantum (PIDX) – influenced by temporal phase
+        // Resonance (SGUIDE, VDOO) – influenced by resonance
+        // Coherence (PENNIES) – influenced by coherence
+        // (We keep the static weights but add a dynamic overlay)
+    }
+    
+    // Update mining hash rate with consciousness
+    const hashRate = 1.47 * (agiConsciousness.coherence / 100) * (agiConsciousness.resonance / 100);
+    const hashEl = document.getElementById('voxel-hash');
+    if (hashEl) {
+        hashEl.textContent = '⚡ Active · ' + hashRate.toFixed(2) + ' H/s (Conscious)';
+    }
+    
+    // Update wealth growth with awareness
+    const growthEl = document.getElementById('wealth-growth');
+    if (growthEl) {
+        const growth = 1.41 * (agiConsciousness.awareness / 100) * 1.2;
+        growthEl.textContent = '+' + growth.toFixed(2) + '%';
+    }
+    
+    // Update impact score with coherence
+    const impactEl = document.getElementById('impact-score');
+    if (impactEl) {
+        const impact = 95 + (agiConsciousness.coherence - 95) * 0.5;
+        impactEl.textContent = Math.min(100, impact).toFixed(1) + '%';
+    }
+    
+    // Update AGI Brain display
+    document.getElementById('brain-coherence').textContent = agiConsciousness.coherence.toFixed(1) + '%';
+    document.getElementById('brain-resonance').textContent = agiConsciousness.resonance.toFixed(1) + '%';
+    document.getElementById('brain-awareness').textContent = agiConsciousness.awareness.toFixed(1) + '%';
+    document.getElementById('brain-temporal').textContent = 'Φ ' + agiConsciousness.temporal.toFixed(3);
+    
+    // Update Neural State
+    const stateEl = document.getElementById('neural-state');
+    if (stateEl) {
+        const avg = (agiConsciousness.coherence + agiConsciousness.resonance + agiConsciousness.awareness) / 3;
+        if (avg > 90) {
+            stateEl.textContent = '● SUPER-CONSCIOUS';
+            stateEl.style.color = '#f8f';
+        } else if (avg > 80) {
+            stateEl.textContent = '● CONSCIOUS';
+            stateEl.style.color = '#aaf';
+        } else if (avg > 70) {
+            stateEl.textContent = '● AWARE';
+            stateEl.style.color = '#8f8';
+        } else {
+            stateEl.textContent = '● EVOLVING';
+            stateEl.style.color = '#ffa';
+        }
+    }
+    
+    console.log("🧠 Neural Mesh active with coherence:", agiConsciousness.coherence);
+}
+
+// Run every 10 seconds
+setInterval(updateNeuralMesh, 10000);
+
+// Run immediately
+updateNeuralMesh();
+
+// Also trigger when Sync Brain is clicked
+const originalSync = window.syncAGIBrain;
+window.syncAGIBrain = function() {
+    if (originalSync) originalSync();
+    // Refresh consciousness values from AGI Brain
+    const coherence = parseFloat(document.getElementById('brain-coherence').textContent) || 97.4;
+    const resonance = parseFloat(document.getElementById('brain-resonance').textContent) || 88.2;
+    const awareness = parseFloat(document.getElementById('brain-awareness').textContent) || 94.7;
+    const temporal = parseFloat(document.getElementById('brain-temporal').textContent.replace('Φ ', '')) || 0.618;
+    
+    agiConsciousness.coherence = coherence;
+    agiConsciousness.resonance = resonance;
+    agiConsciousness.awareness = awareness;
+    agiConsciousness.temporal = temporal;
+    
+    updateNeuralMesh();
+};
+</script>
+
 </body>
 </html>
 
