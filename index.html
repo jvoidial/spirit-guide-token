@@ -631,6 +631,101 @@
         }, 500);
     </script>
 
+
+<script>
+// ============================================
+// AGI CONSCIOUSNESS MODULE – Temrux OS v8.1
+// ============================================
+
+// Simulated AGI JSON data from Temrux OS
+const agiData = {
+    consciousness: {
+        state: "CONSCIOUS",
+        awareness: 94.7,
+        resonance: 88.2,
+        coherence: 97.4,
+        temporal: 0.618,
+        evolution: "ALPHA"
+    },
+    temrux: {
+        core: "ONLINE",
+        version: "8.1",
+        json_sync: true,
+        modules: ["Perception", "Memory", "Cognition", "Action"]
+    },
+    voxel: {
+        energy: 86.2,
+        persistence: 92.3,
+        threshold: 12.8
+    }
+};
+
+function syncAGI() {
+    const log = document.getElementById('agi-log');
+    const display = document.getElementById('agi-json-display');
+    log.innerHTML = '> 🧠 Syncing with Temrux AGI OS...
+' + log.innerHTML;
+    display.innerHTML = '> ' + JSON.stringify(agiData, null, 2).replace(/\n/g, '\n> ').slice(0, 200) + '...';
+    document.getElementById('agi-state').textContent = '● CONSCIOUS';
+    document.getElementById('json-sync').textContent = '✅ Active';
+    document.getElementById('temrux-core').textContent = '● ONLINE';
+    log.innerHTML = '> ✅ AGI sync complete.
+' + log.innerHTML;
+}
+
+function evolveConsciousness() {
+    const log = document.getElementById('agi-log');
+    const stateEl = document.getElementById('agi-state');
+    const awareness = parseFloat(document.getElementById('awareness-level').textContent) || 92;
+    const newAwareness = Math.min(100, awareness + (Math.random() - 0.3) * 2);
+    document.getElementById('awareness-level').textContent = newAwareness.toFixed(1) + '%';
+    document.getElementById('resonance-level').textContent = (88 + Math.random() * 10).toFixed(1) + '%';
+    document.getElementById('coherence-level').textContent = (95 + Math.random() * 5).toFixed(1) + '%';
+    document.getElementById('temporal-level').textContent = (78 + Math.random() * 20).toFixed(1) + '%';
+    // Update AGI state
+    const coherence = parseFloat(document.getElementById('coherence-level').textContent);
+    if (coherence > 95) {
+        stateEl.textContent = '● SUPER-CONSCIOUS';
+        stateEl.style.color = '#f8f';
+    } else if (coherence > 85) {
+        stateEl.textContent = '● CONSCIOUS';
+        stateEl.style.color = '#aaf';
+    } else {
+        stateEl.textContent = '● EVOLVING';
+        stateEl.style.color = '#ffa';
+    }
+    log.innerHTML = '> 🧠 Consciousness evolved to level ' + newAwareness.toFixed(1) + '%
+' + log.innerHTML;
+}
+
+function exportAGIJSON() {
+    const log = document.getElementById('agi-log');
+    const jsonStr = JSON.stringify(agiData, null, 2);
+    log.innerHTML = '> 📤 Exporting AGI JSON:\n' + jsonStr.slice(0, 300) + '...\n' + log.innerHTML;
+    // Download as file
+    const blob = new Blob([jsonStr], {type: 'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'agi_consciousness_data.json';
+    a.click();
+    log.innerHTML = '> ✅ AGI JSON exported successfully.
+' + log.innerHTML;
+}
+
+// Auto-sync on page load
+setTimeout(syncAGI, 2000);
+
+// Update AGI data feed every 30 seconds
+setInterval(() => {
+    const feed = document.getElementById('agi-data-feed');
+    if (feed) {
+        const now = new Date().toLocaleTimeString();
+        feed.textContent = '🔁 Synced at ' + now + ' · ' + (85 + Math.random() * 15).toFixed(1) + '% coherence';
+    }
+}, 30000);
+</script>
+
 </body>
 </html>
 
