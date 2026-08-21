@@ -361,7 +361,7 @@ class VoxelDaemon:
 def main():
     # Check if already running
     import os
-    pid_file = "/tmp/voxel_3rd_brain.pid"
+    pid_file = "./voxel_3rd_brain.pid"
     if os.path.exists(pid_file):
         try:
             with open(pid_file, "r") as f:
