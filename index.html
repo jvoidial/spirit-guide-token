@@ -1,61 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>🧬 SPIRIT GUIDE∞ & VOUDOO∞ – Voxel Resonance</title>
-    <style>
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body {
-            background: #000;
-            color: #eee;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            line-height: 1.8;
-            padding: 2rem 1rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        h1 { font-size: 2.8rem; font-weight: 700; color: #fff; margin-bottom: 0.25rem; }
-        h2 { font-size: 1.8rem; color: #ccc; border-bottom: 2px solid #333; padding-bottom: 0.5rem; margin: 2.5rem 0 1.2rem 0; }
-        h3 { font-size: 1.2rem; color: #ddd; margin-bottom: 0.4rem; }
-        a { color: #8f8; text-decoration: none; border-bottom: 1px dotted #555; }
-        a:hover { color: #fff; border-bottom-color: #fff; }
-        .card { background: #111; border: 1px solid #2a2a2a; border-radius: 16px; padding: 1.5rem 1.8rem; margin-bottom: 1.5rem; }
-        .card:hover { border-color: #555; }
-        .token-badge { display: inline-block; background: #1e1e1e; padding: 0.15rem 0.75rem; border-radius: 20px; font-size: 0.7rem; font-weight: 600; color: #ccc; border: 1px solid #333; margin: 0.2rem 0.2rem 0 0; }
-        .token-badge.success { color: #8f8; border-color: #282; }
-        .token-badge.warn { color: #ffa; border-color: #554; }
-        .token-badge.resonance { color: #aaf; border-color: #446; }
-        .code-addr { font-family: monospace; font-size: 0.85rem; color: #ccc; word-break: break-all; }
-        .supply-number { font-size: 1.1rem; font-weight: 600; color: #fff; }
-        .btn { display: inline-block; background: #333; color: #fff; padding: 0.4rem 1.2rem; border-radius: 30px; font-weight: 600; font-size: 0.85rem; border: none; cursor: pointer; transition: background 0.25s; text-decoration: none; }
-        .btn:hover { background: #555; }
-        .btn-outline { background: transparent; border: 1.5px solid #555; color: #ccc; }
-        .btn-outline:hover { background: #222; color: #fff; border-color: #888; }
-        table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
-        th, td { padding: 0.6rem 0.8rem; text-align: left; border-bottom: 1px solid #222; }
-        th { color: #ccc; font-weight: 600; }
-        tr:hover td { background: #181818; }
-        .footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #1e1e1e; text-align: center; color: #555; font-size: 0.85rem; }
-        .live-badge { display: inline-block; background: #ff4444; color: #fff; padding: 0.1rem 0.6rem; border-radius: 12px; font-size: 0.6rem; font-weight: 600; margin-left: 0.5rem; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0%{opacity:1;} 50%{opacity:0.4;} 100%{opacity:1;} }
-        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.25rem; }
-        @media (max-width: 640px) { h1 { font-size: 2rem; } h2 { font-size: 1.3rem; } .card { padding: 1.2rem; } .card-grid { grid-template-columns: 1fr; } }
-        .prediction-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin: 1rem 0; }
-        .pred-item { background: #1a1a1a; padding: 0.8rem; border-radius: 8px; text-align: center; border: 1px solid #333; }
-        .pred-item .token { color: #aaa; font-size: 0.7rem; text-transform: uppercase; }
-        .pred-item .price { color: #8f8; font-size: 1.2rem; font-weight: 600; }
-        .pred-item .change { color: #ffa; font-size: 0.8rem; }
-        .pred-item .trend { font-size: 0.7rem; color: #888; }
-    </style>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-</head>
-<body>
-    <div id="content"></div>
-    <script>
-<!DOCTYPE html>
-<html lang="en">
-<head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>🧬 SPIRIT GUIDE∞ & VOUDOO∞ – Voxel Resonance</title>
@@ -598,7 +543,3 @@ Enter a stream URL below and click **Save**, then **Start Stream**.
     });
 })();
 </script>
-        document.getElementById('content').innerHTML = marked.parse(markdown);
-    </script>
-</body>
-</html>
