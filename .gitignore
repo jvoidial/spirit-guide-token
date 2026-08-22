@@ -21,3 +21,4 @@ results.json
 
 # system noise
 __pycache__/
+.env
