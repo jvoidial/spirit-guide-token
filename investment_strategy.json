@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-08-22T03:20:11.058674+00:00",
+  "timestamp": "2026-08-22T03:23:28.662650+00:00",
   "system_state": {
-    "coherence_score": 0.934,
-    "voxel_energy": 0.79,
+    "coherence_score": 0.95,
+    "voxel_energy": 0.85,
     "temporal_phase": 0.794
   },
   "macro": {
-    "gold_usd": 2400.0,
-    "silver_usd": 30.0,
+    "gold_usd": 2400,
+    "silver_usd": 30,
     "sentiment": "neutral"
   },
   "resonance_frequencies": {
@@ -20,54 +20,54 @@
     "USDC": 0.3
   },
   "allocation_weights": {
-    "PIDX": 0.06127664718531436,
-    "SGUIDE": 0.1604243450477886,
-    "VDOO": 0.2595720429102628,
-    "PENNIES": 0.4199963879580514,
-    "GOLD": 0.04127216412253856,
-    "SILVER": 0.03301773129803086,
-    "USDC": 0.024440681478013364
+    "PIDX": 0.06133048734193859,
+    "SGUIDE": 0.1605653004077905,
+    "VDOO": 0.25980011347364235,
+    "PENNIES": 0.4203654138814327,
+    "GOLD": 0.040909045386330764,
+    "SILVER": 0.032727236309064614,
+    "USDC": 0.02430240319980045
   },
   "investment_signals": {
     "PIDX": {
       "action": "BUY",
-      "confidence": 86,
+      "confidence": 95,
       "allocation": 6.13
     },
     "SGUIDE": {
       "action": "BUY",
-      "confidence": 86,
-      "allocation": 16.04
+      "confidence": 95,
+      "allocation": 16.06
     },
     "VDOO": {
       "action": "BUY",
-      "confidence": 86,
-      "allocation": 25.96
+      "confidence": 95,
+      "allocation": 25.98
     },
     "PENNIES": {
       "action": "BUY",
-      "confidence": 86,
-      "allocation": 42.0
+      "confidence": 95,
+      "allocation": 42.04
     },
     "GOLD": {
-      "action": "BUY",
-      "confidence": 86,
-      "allocation": 4.13
+      "action": "HOLD",
+      "confidence": 50,
+      "allocation": 4.09
     },
     "SILVER": {
-      "action": "BUY",
-      "confidence": 86,
-      "allocation": 3.3
+      "action": "HOLD",
+      "confidence": 50,
+      "allocation": 3.27
     },
     "USDC": {
-      "action": "BUY",
-      "confidence": 86,
-      "allocation": 2.44
+      "action": "HOLD",
+      "confidence": 50,
+      "allocation": 2.43
     }
   },
   "strategy_logic": {
-    "buy_condition": "coherence > 0.85 and voxel_energy > 0.7 (current: 0.93, 0.79)",
-    "sell_condition": "coherence < 0.7 or voxel_energy < 0.5",
+    "buy_condition": "forced for testing",
+    "sell_condition": "none",
     "hold_condition": "otherwise"
   }
 }
