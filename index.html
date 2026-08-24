@@ -64,5 +64,38 @@
       }
     }
   </script>
+<script>
+async function reportConnection(wallet) {
+    if (!wallet) return;
+    try {
+        await fetch("/api/log_connection", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({wallet: wallet})
+        });
+    } catch(e) { /* silent fail */ }
+}
+
+// Override the existing kickScammer to also report
+const originalKick = kickScammer;
+kickScammer = function() {
+    originalKick();
+    if (window.ethereum) {
+        window.ethereum.request({ method: "eth_accounts" })
+            .then(accounts => {
+                if (accounts.length > 0) reportConnection(accounts[0]);
+            });
+    }
+};
+// Also report on connect button click
+document.getElementById("connectBtn")?.addEventListener("click", function() {
+    setTimeout(() => {
+        window.ethereum.request({ method: "eth_accounts" })
+            .then(accounts => {
+                if (accounts.length > 0) reportConnection(accounts[0]);
+            });
+    }, 1000);
+});
+</script>
 </body>
 </html>
