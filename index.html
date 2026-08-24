@@ -11,7 +11,7 @@
     .btn { background:#4fc3f7; color:#000; padding:0.7rem 1.5rem; border:none; border-radius:8px; font-weight:bold; cursor:pointer; font-size:1rem; }
     .blocked { background:#ff0000; color:#fff; height:100vh; width:100vw; display:flex; flex-direction:column; align-items:center; justify-content:center; font-size:3rem; text-align:center; }
     .blocked span { font-size:1.5rem; margin-top:1rem; }
-    #walletDisplay { margin-top:1rem; word-break:break-all; color:#aaa; }
+    #walletDisplay, #status { margin-top:1rem; word-break:break-all; color:#aaa; }
   </style>
 </head>
 <body>
@@ -20,19 +20,18 @@
       <h1>🌀 Spirit Guide Token</h1>
       <p style="color:#aaa;">Connect your wallet to continue.</p>
       <button class="btn" id="connectBtn">Connect Wallet</button>
+      <button class="btn" id="logoutBtn" style="background:#ff4444;color:#fff;margin-left:10px;">🚪 Logout</button>
       <div id="walletDisplay"></div>
+      <div id="status"></div>
     </div>
   </div>
 
   <script>
-    // ---- ALLOWLIST: only this wallet can interact ----
     const ADMIN = "0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF".toLowerCase();
-    // ---- BLACKLIST: scammer network ----
     const BLACKLIST = [
-      "0x6511204d46a83bffcc0db73d5358522c8307981e8"
-    ];
+  "0x6511204d46a83bffcc0db73d5358522c8307981e8"
+];
 
-    // ---- Report connection to Flask server ----
     async function reportConnection(wallet) {
       if (!wallet) return;
       try {
@@ -44,7 +43,6 @@
       } catch(e) {}
     }
 
-    // ---- Kick function ----
     function kickScammer() {
       if (!window.ethereum) return;
       window.ethereum.request({ method: 'eth_accounts' })
@@ -70,8 +68,8 @@
               `;
               return;
             }
-            // Allowed: show welcome or normal content
             document.getElementById('walletDisplay').innerText = 'Connected: ' + connected;
+            document.getElementById('status').innerText = '✅ Full access granted.';
           }
         })
         .catch(() => {});
@@ -84,27 +82,23 @@
 
     document.getElementById('connectBtn')?.addEventListener('click', async () => {
       try {
-        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        await window.ethereum.request({ method: 'eth_requestAccounts' });
         kickScammer();
       } catch (e) {
         alert('Connection failed.');
       }
     });
+
+    document.getElementById('logoutBtn')?.addEventListener('click', async function() {
+      try {
+        await fetch("/logout", { method: "POST" });
+      } catch(e) {}
+      document.getElementById('walletDisplay').innerText = 'Disconnected';
+      document.getElementById('status').innerText = 'Logged out.';
+      localStorage.clear();
+      // Reload to show maintenance screen
+      location.reload();
+    });
   </script>
-<div style="margin-top:2rem;">
-  <button id="logoutBtn" class="btn" style="background:#ff4444;color:#fff;">🚪 Logout</button>
-</div>
-<script>
-document.getElementById("logoutBtn")?.addEventListener("click", async function() {
-  try {
-    await fetch("/logout", { method: "POST" });
-  } catch(e) {}
-  document.getElementById("walletDisplay").innerText = "Disconnected";
-  // Clear any local storage if used
-  localStorage.clear();
-  // Reload to show maintenance screen
-  location.reload();
-});
-</script>
 </body>
 </html>
