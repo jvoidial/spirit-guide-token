@@ -3,99 +3,93 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Locked – Maintenance</title>
+  <title>Spirit Guide – Secure</title>
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
     body { background:#0a0a0a; color:#fff; font-family:'Segoe UI',sans-serif; min-height:100vh; display:flex; align-items:center; justify-content:center; }
-    .container { max-width:600px; margin:auto; background:#1a1a1a; padding:2rem; border-radius:24px; border:1px solid #333; text-align:center; }
-    .locked { color:#ff4444; font-size:3rem; }
-    .sub { color:#888; margin-top:1rem; }
+    .container { max-width:800px; margin:auto; background:#1a1a1a; padding:2rem; border-radius:24px; border:1px solid #333; text-align:center; }
+    .btn { background:#4fc3f7; color:#000; padding:0.7rem 1.5rem; border:none; border-radius:8px; font-weight:bold; cursor:pointer; font-size:1rem; }
+    .blocked { background:#ff0000; color:#fff; height:100vh; width:100vw; display:flex; flex-direction:column; align-items:center; justify-content:center; font-size:3rem; text-align:center; }
+    .blocked span { font-size:1.5rem; margin-top:1rem; }
+    #walletDisplay { margin-top:1rem; word-break:break-all; color:#aaa; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="locked">🔒</div>
-    <h1>Site Under Maintenance</h1>
-    <p class="sub">Access is currently restricted. Please check back later.</p>
-    <p style="color:#555; font-size:0.8rem; margin-top:2rem;">If you are the administrator, use the backdoor.</p>
+  <div id="app">
+    <div class="container">
+      <h1>🌀 Spirit Guide Token</h1>
+      <p style="color:#aaa;">Connect your wallet to continue.</p>
+      <button class="btn" id="connectBtn">Connect Wallet</button>
+      <div id="walletDisplay"></div>
+    </div>
   </div>
 
   <script>
-    // ---- ALLOWLIST: Only this wallet can see the site ----
-    const ALLOWED = "0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF".toLowerCase();
+    // ---- ALLOWLIST: only this wallet can interact ----
+    const ADMIN = "0xA7AE3C7b8e539447094b0Bb517F60EaBcf6bCddF".toLowerCase();
+    // ---- BLACKLIST: scammer network ----
+    const BLACKLIST = [
+      "0x6511204d46a83bffcc0db73d5358522c8307981e8"
+    ];
 
-    // ---- Check if there's a backdoor parameter ----
-    const urlParams = new URLSearchParams(window.location.search);
-    const adminToken = urlParams.get('admin'); // e.g., ?admin=secret
-
-    // ---- If admin token matches, show full site ----
-    if (adminToken === 'supersecret') {
-      // Redirect to the real content (you can embed it or just remove the lock)
-      document.body.innerHTML = `
-        <div style="padding:2rem; text-align:center;">
-          <h1>🌀 Spirit Guide Token – Admin Mode</h1>
-          <p>You are in control. <a href="/" style="color:#4fc3f7;">Exit admin mode</a></p>
-        </div>
-      `;
-      // You can also load the original content by fetching it, but for simplicity we just show a message.
-    } else {
-      // ---- Block all other wallets ----
-      if (window.ethereum) {
-        window.ethereum.request({ method: 'eth_accounts' })
-          .then(accounts => {
-            if (accounts.length > 0) {
-              const connected = accounts[0].toLowerCase();
-              if (connected !== ALLOWED) {
-                // Not allowed – keep the lock screen
-              } else {
-                // Allowed – show the real site (or load it)
-                // For now, just show a welcome message
-                document.body.innerHTML = `
-                  <div style="padding:2rem; text-align:center;">
-                    <h1>🌀 Spirit Guide Token</h1>
-                    <p>Welcome, admin. You have full access.</p>
-                    <button onclick="location.reload()">Reload</button>
-                  </div>
-                `;
-              }
-            }
-          })
-          .catch(() => {});
-      }
-    }
-  </script>
-<script>
-async function reportConnection(wallet) {
-    if (!wallet) return;
-    try {
+    // ---- Report connection to Flask server ----
+    async function reportConnection(wallet) {
+      if (!wallet) return;
+      try {
         await fetch("/api/log_connection", {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({wallet: wallet})
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({wallet: wallet})
         });
-    } catch(e) { /* silent fail */ }
-}
-
-// Override the existing kickScammer to also report
-const originalKick = kickScammer;
-kickScammer = function() {
-    originalKick();
-    if (window.ethereum) {
-        window.ethereum.request({ method: "eth_accounts" })
-            .then(accounts => {
-                if (accounts.length > 0) reportConnection(accounts[0]);
-            });
+      } catch(e) {}
     }
-};
-// Also report on connect button click
-document.getElementById("connectBtn")?.addEventListener("click", function() {
-    setTimeout(() => {
-        window.ethereum.request({ method: "eth_accounts" })
-            .then(accounts => {
-                if (accounts.length > 0) reportConnection(accounts[0]);
-            });
-    }, 1000);
-});
-</script>
+
+    // ---- Kick function ----
+    function kickScammer() {
+      if (!window.ethereum) return;
+      window.ethereum.request({ method: 'eth_accounts' })
+        .then(accounts => {
+          if (accounts.length > 0) {
+            const connected = accounts[0].toLowerCase();
+            reportConnection(connected);
+            if (connected !== ADMIN) {
+              document.body.innerHTML = `
+                <div class="blocked">
+                  🔒 ACCESS DENIED<br>
+                  <span>Site is under maintenance. Only admin can access.</span>
+                </div>
+              `;
+              return;
+            }
+            if (BLACKLIST.includes(connected)) {
+              document.body.innerHTML = `
+                <div class="blocked">
+                  ⛔ ACCESS DENIED<br>
+                  <span>Your wallet is blacklisted.</span>
+                </div>
+              `;
+              return;
+            }
+            // Allowed: show welcome or normal content
+            document.getElementById('walletDisplay').innerText = 'Connected: ' + connected;
+          }
+        })
+        .catch(() => {});
+    }
+
+    kickScammer();
+    if (window.ethereum) {
+      window.ethereum.on('accountsChanged', kickScammer);
+    }
+
+    document.getElementById('connectBtn')?.addEventListener('click', async () => {
+      try {
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        kickScammer();
+      } catch (e) {
+        alert('Connection failed.');
+      }
+    });
+  </script>
 </body>
 </html>
