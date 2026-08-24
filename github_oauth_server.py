@@ -113,5 +113,9 @@ def view_connections():
     html += "</ul>"
     return html
 
+@app.route("/logout", methods=["GET", "POST"])
+def logout():
+    session.clear()
+    return "Logged out successfully. You can close this window."
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000, debug=False)

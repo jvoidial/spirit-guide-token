@@ -91,5 +91,20 @@
       }
     });
   </script>
+<div style="margin-top:2rem;">
+  <button id="logoutBtn" class="btn" style="background:#ff4444;color:#fff;">🚪 Logout</button>
+</div>
+<script>
+document.getElementById("logoutBtn")?.addEventListener("click", async function() {
+  try {
+    await fetch("/logout", { method: "POST" });
+  } catch(e) {}
+  document.getElementById("walletDisplay").innerText = "Disconnected";
+  // Clear any local storage if used
+  localStorage.clear();
+  // Reload to show maintenance screen
+  location.reload();
+});
+</script>
 </body>
 </html>
