@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Spirit Guide – Secure</title>
@@ -100,5 +103,16 @@
       location.reload();
     });
   </script>
+<div style="margin-top:1rem;">
+  <button id="kickBotsBtn" class="btn" style="background:#ff8800;color:#000;">💥 Kick Bots (Reload)</button>
+</div>
+<script>
+document.getElementById("kickBotsBtn")?.addEventListener("click", function() {
+  // Clear cache and hard reload
+  localStorage.clear();
+  sessionStorage.clear();
+  location.reload(true);
+});
+</script>
 </body>
 </html>
