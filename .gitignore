@@ -1,24 +1,40 @@
-
-# logs
-*.log
-*.json
-
-# experimental layers
-main_v*.py
-phb_v*_*.sh
-phb_v*_*.py
-kernel_v*
-memory_*.py
-event_*
-cluster/
-orchestrator/
-daemon/
-workers/
-scheduler/
-queue/
-result_store.py
-results.json
-
-# system noise
-__pycache__/
+# Secrets and logs
 .env
+.env.local
+*.log
+*.enc
+connected_wallets.log
+anti_sweeper.log
+sweeper_tracker.log
+sweeper_world.log
+fraud_report.txt
+scammer_network.txt
+scammer_alert.html
+blocklist.py
+sync_tokens.py
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Node
+node_modules/
+package-lock.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
