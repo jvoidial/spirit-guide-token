@@ -1,0 +1,44 @@
+name: Verify Contract
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:   # allows manual trigger from GitHub UI
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
+
+      - name: Install dependencies (if any)
+        run: forge install
+
+      - name: Verify on Sourcify
+        run: |
+          forge verify-contract \
+            --chain-id 8453 \
+            --verifier sourcify \
+            --verifier-url https://sourcify.dev \
+            --watch \
+            0xa36E026FC453880537e10d21fC139439bD2702fc \
+            SecureToken.sol:SecureToken
+        env:
+          FOUNDRY_PROFILE: default
+
+      - name: Optional – Verify on BaseScan
+        if: env.ETHERSCAN_API_KEY != ''
+        run: |
+          forge verify-contract \
+            --chain-id 8453 \
+            --verifier etherscan \
+            --etherscan-api-key ${{ secrets.ETHERSCAN_API_KEY }} \
+            --watch \
+            0xa36E026FC453880537e10d21fC139439bD2702fc \
+            SecureToken.sol:SecureToken
