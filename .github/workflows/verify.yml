@@ -1,44 +1,33 @@
-name: Verify Contract
+name: Verify Contracts
 
 on:
   push:
     branches: [ main ]
-  workflow_dispatch:   # allows manual trigger from GitHub UI
+  workflow_dispatch:
+
+env:
+  FOUNDRY_PROFILE: ci
 
 jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: Install Foundry
         uses: foundry-rs/foundry-toolchain@v1
-        with:
-          version: nightly
 
-      - name: Install dependencies (if any)
-        run: forge install
-
-      - name: Verify on Sourcify
-        run: |
-          forge verify-contract \
-            --chain-id 8453 \
-            --verifier sourcify \
-            --verifier-url https://sourcify.dev \
-            --watch \
-            0xa36E026FC453880537e10d21fC139439bD2702fc \
-            SecureToken.sol:SecureToken
+      - name: Verify contracts
         env:
-          FOUNDRY_PROFILE: default
-
-      - name: Optional – Verify on BaseScan
-        if: env.ETHERSCAN_API_KEY != ''
+          BASESCAN_API_KEY: ${{ secrets.BASESCAN_API_KEY }}
+          ETHERSCAN_API_KEY: ${{ secrets.BASESCAN_API_KEY }}
         run: |
           forge verify-contract \
             --chain-id 8453 \
-            --verifier etherscan \
-            --etherscan-api-key ${{ secrets.ETHERSCAN_API_KEY }} \
+            --num-of-optimizations 200 \
             --watch \
-            0xa36E026FC453880537e10d21fC139439bD2702fc \
-            SecureToken.sol:SecureToken
+            0xYourContractAddress \
+            src/YourContract.sol:YourContractName \
+            --constructor-args $(cast abi-encode "constructor(address)" 0xSomeAddress)
